@@ -1,0 +1,170 @@
+:root {
+  /* Colors */
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --background-color: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #212529;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* Layout */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 50px repeat(5, 1fr);
+  gap: var(--spacing-sm);
+  width: 100vw;
+  height: 100vh;
+  padding: var(--spacing-sm);
+}
+
+/* Grid elements */
+.grid-element {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.div2 {
+  grid-column: 2 / span 4;
+  grid-row: 2 / span 5;
+}
+
+.div4 {
+  grid-column: 1 / 2;
+  grid-row: 2 / span 5;
+}
+
+.div6 {
+  background-color: var(--color-background-black);
+  grid-column: 1 / span 5;
+  grid-row: 1 / 2;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-md);
+}
+div {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.login-container {
+  max-width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  width: 90%; /* Pour la responsivité */
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.login-container input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+/* Pour le conteneur parent qui contiendra le formulaire */
+.login-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+/* Buttons */
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .parent {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px auto;
+  }
+
+  .div2,
+  .div4,
+  .div6 {
+    grid-column: 1;
+  }
+
+  .login-container {
+    margin: var(--spacing-md);
+    max-width: 100%;
+  }
+}
+
+.form-footer {
+  margin-top: var(--spacing-md);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.form-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-color);
+}
