@@ -3,7 +3,7 @@ import { login } from './pages/login.js';
 import { register } from './pages/register.js';
 
 const routes = {
-  '/': home,
+  '/': login,
   '/home': home,
   '/login': login,
   '/register': register,

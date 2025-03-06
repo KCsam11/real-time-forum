@@ -32,17 +32,6 @@ body {
   background-color: var(--background-color);
 }
 
-/* Layout */
-.parent {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 50px repeat(5, 1fr);
-  gap: var(--spacing-sm);
-  width: 100vw;
-  height: 100vh;
-  padding: var(--spacing-sm);
-}
-
 /* Grid elements */
 .grid-element {
   background-color: white;
@@ -51,29 +40,48 @@ body {
   padding: var(--spacing-md);
   box-shadow: 0 2px 4px var(--shadow-color);
 }
+.parent {
+  display: grid;
+  grid-template-columns: 240px 1fr; /* Ajusté pour correspondre à la largeur de div4 */
+  grid-template-rows: 50px 1fr;
+  width: 100vw;
+  height: 100vh;
+  gap: 0;
+}
 
 .div2 {
-  grid-column: 2 / span 4;
-  grid-row: 2 / span 5;
+  grid-column: 2;
+  grid-row: 2;
+  background-color: #0e0e10;
+  margin-left: 0; /* Supprime la marge à gauche */
+  padding: var(--spacing-md);
 }
 
 .div4 {
-  grid-column: 1 / 2;
-  grid-row: 2 / span 5;
+  background-color: #1f1f23;
+  grid-column: 1;
+  grid-row: 2;
+  width: 240px;
+  margin-right: 0; /* Supprime la marge à droite */
+  padding: var(--spacing-md);
+}
+
+.div2,
+.div4 {
+  border: none;
+  height: calc(100vh - 50px); /* Hauteur totale moins la hauteur du header */
 }
 
 .div6 {
-  background-color: var(--color-background-black);
-  grid-column: 1 / span 5;
-  grid-row: 1 / 2;
+  border-bottom: 2px solid #000000;
+  border-top: 2px solid #1f1f23;
+  background-color: #18181b;
+  grid-column: 1 / -1; /* Span all columns */
+  grid-row: 1;
   height: 50px;
   display: flex;
   align-items: center;
   padding: 0 var(--spacing-md);
-}
-div {
-  border: 1px solid black;
-  border-radius: 3px;
 }
 
 .login-container {
@@ -167,4 +175,103 @@ div {
   text-align: center;
   margin-bottom: var(--spacing-lg);
   color: var(--text-color);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #772ce8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #5c16c5;
+}
+
+.logout-icon {
+  width: 16px;
+  height: 16px;
+  filter: invert(1); /* Si votre icône est noire et que vous voulez la rendre blanche */
+}
+
+.notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  color: #efeff1;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-btn .tooltip {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.notification-btn:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.notification-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.notification-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px;
+}
+
+#testNotifBtn {
+  margin: 20px;
+  background-color: #772ce8;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#testNotifBtn:hover {
+  background-color: #5c16c5;
 }
