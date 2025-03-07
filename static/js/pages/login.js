@@ -2,20 +2,26 @@ import { navigate } from '../navigation.js';
 
 export function login() {
   const template = `
-        <div class="login-page">
-            <div class="login-container">
-                <h2>Login</h2>
-                <form id="loginForm">
-                    <input type="text" id="username" placeholder="Username" required>
-                    <input type="password" id="password" placeholder="Password" required>
-                    <button class="btn" type="submit">Login</button>
-                </form>
-                <p class="form-footer">
-                    Don't have an account? <a href="#" id="registerLink">Register here</a>
-                </p>
-            </div>
-        </div>
-    `;
+       <div class="login-page">
+      <div class="login-container">
+        <h2>Se connecter à <span class="login-logo">RT<span class="logo-highlight">F</span></span></h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Identifiant</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button class="btn" type="submit">Se connecter</button>
+          <p class="form-footer">
+            Pas encore de compte ? <a href="#" id="registerLink">S'inscrire</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  `;
 
   setTimeout(() => {
     const form = document.getElementById('loginForm');

@@ -85,7 +85,6 @@ body {
 }
 
 .login-container {
-  max-width: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -703,7 +702,7 @@ body {
   border: none;
   color: #efeff1;
   cursor: pointer;
-  padding: 4px;
+  /* padding: 4px; */
   border-radius: 4px;
   transition: background-color 0.2s;
 }
@@ -1014,4 +1013,213 @@ body {
   font-size: 14px;
   line-height: 1.5;
   white-space: pre-wrap;
+}
+.div2 {
+  grid-area: main;
+  padding: 16px;
+  background-color: #0e0e10;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden; /* Empêche le débordement */
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  overflow-y: auto; /* Ajoute un défilement vertical */
+  height: calc(100% - 100px); /* Hauteur totale moins l'espace pour le bouton create post */
+  padding-right: 8px; /* Espace pour la barre de défilement */
+}
+
+/* Style pour la barre de défilement */
+.posts-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.posts-container::-webkit-scrollbar-track {
+  background: #18181b;
+  border-radius: 4px;
+}
+
+.posts-container::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 4px;
+}
+
+.posts-container::-webkit-scrollbar-thumb:hover {
+  background: #3d3d3d;
+}
+
+.login-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0e0e10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  width: 600px;
+  background-color: #18181b;
+  border-radius: 4px;
+  padding: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.login-container h2 {
+  color: #efeff1;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #efeff1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #1f1f23;
+  border: 2px solid #2d2d2d;
+  border-radius: 4px;
+  color: #efeff1;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #772ce8;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #772ce8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-container button:hover {
+  background-color: #9147ff;
+}
+
+.form-footer {
+  margin-top: 24px;
+  text-align: center;
+  color: #adadb8;
+  font-size: 14px;
+}
+
+.form-footer a {
+  color: #772ce8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+.login-logo {
+  font-weight: 700;
+  font-size: 28px;
+  color: #efeff1;
+}
+
+.login-logo .logo-highlight {
+  color: #772ce8;
+}
+
+.login-container h2 {
+  color: #efeff1;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #efeff1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.register-container {
+  width: 520px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+select {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #1f1f23;
+  border: 2px solid #2d2d2d;
+  border-radius: 4px;
+  color: #efeff1;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23EFEFF1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #772ce8;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
