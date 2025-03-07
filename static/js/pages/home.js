@@ -5,9 +5,19 @@ export function home() {
   <div class="parent">
 
     <div class="div2">
+        <div class="create-post-section">
+        <button id="createPostBtn" class="create-post-btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+            </svg>
+            Créer un nouveau post
+        </button>
+      </div>
+      <div class="test-buttons">
         <button id="testMsgBtn" class="btn">Ajouter un message</button>
         <button id="testNotifBtn" class="btn">Ajouter une notification</button>
-    </div>
+      </div>
+      </div>
 
       <div class="div6">
       <div class="logo">RT<span>F</span></div>
@@ -161,6 +171,7 @@ export function home() {
     setupChat();
     setupLogout();
     setupUsersList();
+    setupCreatePost();
   }, 0);
 
   return template;
@@ -328,4 +339,99 @@ function setupUsersList() {
       div4.classList.toggle('collapsed');
     });
   }
+}
+
+function setupCreatePost() {
+  const createPostBtn = document.getElementById('createPostBtn');
+  const mainContent = document.querySelector('.div2');
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Créer un nouveau post</h3>
+        <button class="modal-close-btn">
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <path d="M4 4L16 16M4 16L16 4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="post-category" required>
+          <option value="">Sélectionner une catégorie</option>
+          <option value="general">Général</option>
+          <option value="question">Question</option>
+          <option value="discussion">Discussion</option>
+        </select>
+        <textarea 
+          class="post-content" 
+          placeholder="Contenu du post..."
+          rows="6"
+          required
+        ></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn cancel-btn">Annuler</button>
+        <button class="btn submit-btn">Publier</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  // Create posts container
+  const postsContainer = document.createElement('div');
+  postsContainer.className = 'posts-container';
+  mainContent.appendChild(postsContainer);
+
+  createPostBtn.addEventListener('click', () => {
+    modal.classList.add('show');
+  });
+
+  const closeBtn = modal.querySelector('.modal-close-btn');
+  const cancelBtn = modal.querySelector('.cancel-btn');
+  const submitBtn = modal.querySelector('.submit-btn');
+
+  [closeBtn, cancelBtn].forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+  });
+
+  submitBtn.addEventListener('click', () => {
+    const category = modal.querySelector('.post-category').value;
+    const content = modal.querySelector('.post-content').value;
+
+    if (category && content.trim()) {
+      const post = createPost({
+        username: 'User123', // Fake username for testing
+        category,
+        content,
+        timestamp: new Date().toLocaleString(),
+      });
+      postsContainer.insertBefore(post, postsContainer.firstChild);
+      modal.classList.remove('show');
+      modal.querySelector('.post-category').value = '';
+      modal.querySelector('.post-content').value = '';
+    }
+  });
+}
+
+function createPost(postData) {
+  const post = document.createElement('div');
+  post.className = 'post';
+  post.innerHTML = `
+    <div class="post-header">
+      <div class="post-user">
+        <div class="user-avatar">${postData.username[0]}</div>
+        <div class="post-user-info">
+          <div class="post-username">${postData.username}</div>
+          <div class="post-timestamp">${postData.timestamp}</div>
+        </div>
+      </div>
+      <div class="post-category-tag">${postData.category}</div>
+    </div>
+    <div class="post-content">${postData.content}</div>
+  `;
+  return post;
 }

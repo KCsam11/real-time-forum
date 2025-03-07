@@ -408,7 +408,7 @@ body {
 .chat-container {
   position: fixed;
   right: -400px;
-  top: 50px;
+  /* top: 50px; */
   bottom: 0;
   width: 400px;
   background-color: #1f1f23;
@@ -577,7 +577,7 @@ body {
 
 .section-header h3 {
   color: #efeff1;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   margin: 0;
 }
@@ -771,7 +771,7 @@ body {
 .chat-container {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 6%;
   bottom: 0;
   width: 340px;
   transform: translateX(100%);
@@ -812,4 +812,206 @@ body {
 /* Remove margin-based approach */
 .div4.collapsed {
   width: 60px;
+}
+
+.div2 {
+  grid-area: main;
+  padding: 16px;
+  background-color: #0e0e10;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.create-post-section {
+  border-bottom: 1px solid #2d2d2d;
+  padding-bottom: 16px;
+}
+
+.create-post-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #772ce8;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.create-post-btn:hover {
+  background-color: #9147ff;
+}
+
+.test-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Add these styles for the modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #1f1f23;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  padding: 16px;
+  border-bottom: 1px solid #2d2d2d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  color: #efeff1;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: #efeff1;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.modal-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-category {
+  background-color: #18181b;
+  border: 1px solid #2d2d2d;
+  color: #efeff1;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.post-content {
+  background-color: #18181b;
+  border: 1px solid #2d2d2d;
+  color: #efeff1;
+  padding: 12px;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.post-category:focus,
+.post-content:focus {
+  outline: none;
+  border-color: #772ce8;
+}
+
+.modal-footer {
+  padding: 16px;
+  border-top: 1px solid #2d2d2d;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  border: 1px solid #772ce8;
+  color: #772ce8;
+}
+
+.submit-btn {
+  background-color: #772ce8;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: #9147ff;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.post {
+  background-color: #1f1f23;
+  border-radius: 4px;
+  padding: 16px;
+  color: #efeff1;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.post-username {
+  font-weight: 600;
+  color: #efeff1;
+}
+
+.post-timestamp {
+  font-size: 12px;
+  color: #adadb8;
+}
+
+.post-category-tag {
+  background-color: #772ce8;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.post-content {
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }
