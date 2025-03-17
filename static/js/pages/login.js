@@ -26,16 +26,32 @@ export function login() {
   setTimeout(() => {
     const form = document.getElementById('loginForm');
     if (form) {
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const username = document.getElementById('username').value;
+        const identifiant = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Ici vous pourrez ajouter la validation du login
-        console.log('Login attempt:', { username, password });
+        try {
+          const response = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              identifiant: identifiant,
+              password: password,
+            }),
+          });
 
-        // Redirection vers la page home après le login
-        navigate('/home');
+          if (!response.ok) {
+            throw new Error(`Erreur : ${response.status} ${response.statusText}`);
+          } else {
+            navigate('/home');
+          }
+        } catch (error) {
+          console.error('Erreur de connexion:', error);
+          alert('Erreur lors de la connexion');
+        }
       });
     }
 
