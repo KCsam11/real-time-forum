@@ -13,7 +13,7 @@ import (
 )
 
 type LoginCheck struct {
-	Identifier string `json:"email"` // Peut être un email ou un username
+	Identifier string `json:"identifiant"` // Peut être un email ou un username
 	Password   string `json:"password"`
 }
 

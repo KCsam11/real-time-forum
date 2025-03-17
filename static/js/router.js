@@ -11,8 +11,6 @@ const routes = {
 
 function router() {
   const path = window.location.pathname || '/';
-  console.log('path:', path);
-  console.log('routes[path]:', routes[path]);
   const page = routes[path] || routes['/'];
   const app = document.getElementById('app');
   if (app) {

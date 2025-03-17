@@ -71,6 +71,7 @@ export function register() {
 
         const formData = new FormData(registerForm);
         const data = Object.fromEntries(formData);
+        console.log(data);
 
         // Validation basique
         if (data.password !== data['confirm-password']) {
