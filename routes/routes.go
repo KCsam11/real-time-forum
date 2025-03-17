@@ -21,6 +21,9 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB) {
     mux.HandleFunc("/api/register", func(w http.ResponseWriter, r *http.Request) {
         functions.Register(w, r, db)
     })
+    mux.HandleFunc("/api/logout", func(w http.ResponseWriter, r *http.Request) {
+        functions.Logout(db,w,r)
+    })
 
     // Serve index.html for all other routes
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

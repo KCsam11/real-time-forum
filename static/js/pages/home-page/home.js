@@ -1,5 +1,6 @@
-import { navigate } from '../navigation.js';
+import { navigate } from '../../navigation.js';
 import { homeTemplate } from './homeTemplate.js';
+import { setupLogout } from './logout.js';
 
 export function home() {
   const template = homeTemplate;
@@ -156,15 +157,6 @@ function setupChat() {
       chatInput.style.height = 'auto';
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-  }
-}
-
-function setupLogout() {
-  const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      navigate('/login');
-    });
   }
 }
 
