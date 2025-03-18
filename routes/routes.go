@@ -4,11 +4,12 @@ import (
 	"database/sql"
 	"net/http"
 
+	"realTimeForum/chat"
 	"realTimeForum/functions"
 )
 
 // Ajout de `hub *websocketFile.Hub` en paramètre
-func SetupRoutes(mux *http.ServeMux, db *sql.DB) {
+func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
 	//Routes API
 	fs := http.FileServer(http.Dir("static"))
     mux.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -29,4 +30,8 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB) {
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         http.ServeFile(w, r, "static/index.html")
     })
+
+    mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		hub.HandleConnections(db, w, r)
+	})
 }

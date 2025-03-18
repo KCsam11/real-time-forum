@@ -120,6 +120,8 @@ function setupChat() {
   if (chatCloseBtn) {
     chatCloseBtn.addEventListener('click', () => {
       chatContainer.classList.remove('show-chat');
+      chatContainer.classList.add('hide-chat');
+      setTimeout(() => chatContainer.classList.remove('hide-chat'), 300); // Remove class after animation
     });
   }
 

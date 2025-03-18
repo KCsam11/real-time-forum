@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"realTimeForum/chat"
 	"realTimeForum/database"
 	"realTimeForum/routes"
 
@@ -46,12 +47,12 @@ func main() {
 		}
 	}(db)
 
-	// hub := chat.NewHub(db)
-	// go hub.Run()
+	hub := chat.NewHub(db)
+	go hub.Run()
 
 	mux := http.NewServeMux()
 
-	routes.SetupRoutes(mux, db) // On passe `db`
+	routes.SetupRoutes(mux, db,hub) // On passe `db`
 
 	// Ajout du middleware CORS
 	handlerWithCORS := corsMiddleware(mux)
