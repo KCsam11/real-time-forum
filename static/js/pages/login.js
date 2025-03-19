@@ -1,6 +1,6 @@
 import { navigate } from '../navigation.js';
 
-export function login() {
+export const login = () => {
   const template = `
        <div class="login-page">
       <div class="login-container">
@@ -23,7 +23,7 @@ export function login() {
     </div>
   `;
 
-  setTimeout(() => {
+  const setup = () => {
     const form = document.getElementById('loginForm');
     if (form) {
       form.addEventListener('submit', async (e) => {
@@ -62,7 +62,7 @@ export function login() {
         navigate('/register');
       });
     }
-  }, 0);
+  };
 
-  return template;
-}
+  return { template, setup };
+};

@@ -40,6 +40,9 @@ func (h *Hub) HandleConnections(db *sql.DB, w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	log.Println("✅ Connexion WebSocket établie")
+
+	
 	cookie, err := r.Cookie("session_id")
 	if err != nil {
 		utils.SendErrorResponse(w, 401, "Missing Cookie")

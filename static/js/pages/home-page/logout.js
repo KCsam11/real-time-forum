@@ -1,9 +1,11 @@
 import { navigate } from '../../navigation.js';
+import { closeWebSocket } from '../../router.js';
 
 export function setupLogout() {
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
+      console.log('🔒 Déconnexion en cours...');
       try {
         const response = await fetch('/api/logout', {
           method: 'POST',
@@ -17,7 +19,7 @@ export function setupLogout() {
           throw new Error('Erreur lors de la déconnexion');
         }
 
-        // closeWebSocket();
+        closeWebSocket();
         navigate('/login');
       } catch (error) {
         console.error('Erreur lors de la requête de déconnexion :', error);

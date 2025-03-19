@@ -2,7 +2,7 @@ import { navigate } from '../../navigation.js';
 import { homeTemplate } from './homeTemplate.js';
 import { setupLogout } from './logout.js';
 
-export function home() {
+export const home = () => {
   const template = homeTemplate;
   setTimeout(() => {
     setupNotif();
@@ -14,7 +14,7 @@ export function home() {
   }, 0);
 
   return template;
-}
+};
 
 function setupNotif() {
   let notifCount = 0;
