@@ -1,5 +1,5 @@
-import { navigate } from '../../navigation.js';
 import { closeWebSocket } from '../../router.js';
+import { login } from '../login.js';
 
 export function setupLogout() {
   const logoutBtn = document.getElementById('logoutBtn');
@@ -20,7 +20,7 @@ export function setupLogout() {
         }
 
         closeWebSocket();
-        navigate('/login');
+        login();
       } catch (error) {
         console.error('Erreur lors de la requête de déconnexion :', error);
         alert('Erreur lors de la déconnexion. Veuillez réessayer.');

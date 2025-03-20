@@ -7,6 +7,7 @@ import (
 	"realTimeForum/chat"
 	"realTimeForum/database"
 	"realTimeForum/routes"
+	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -53,6 +54,19 @@ func main() {
 	mux := http.NewServeMux()
 
 	routes.SetupRoutes(mux, db,hub) // On passe `db`
+	
+	fs := http.FileServer(http.Dir("static"))
+    http.Handle("/static/", http.StripPrefix("/static/", fs))
+    
+    // La route pour index.html doit être la dernière
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        // Ne pas servir index.html pour les routes API
+        if strings.HasPrefix(r.URL.Path, "/api/") {
+            http.NotFound(w, r)
+            return
+        }
+        http.ServeFile(w, r, "static/index.html")
+    })
 
 	// Ajout du middleware CORS
 	handlerWithCORS := corsMiddleware(mux)

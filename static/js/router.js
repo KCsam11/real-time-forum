@@ -1,21 +1,11 @@
-import { navigate } from './navigation.js';
 import { home } from './pages/home-page/home.js';
+import { setupUsersList } from './pages/home-page/usersList.js';
+import { updateOnlineStatus } from './pages/home-page/usersList.js';
 import { login } from './pages/login.js';
-import { register } from './pages/register.js';
-
-// const routes = {
-//   '/': login,
-//   '/home': home,
-//   '/login': login,
-//   '/register': register,
-// };
 
 export let socket = null;
 
 export const router = () => {
-  const app = document.getElementById('app');
-
-  // 🔌 Si un WebSocket est déjà ouvert, on le ferme avant d'en créer un nouveau
   if (socket && socket.readyState === WebSocket.OPEN) {
     closeWebSocket();
   }
@@ -25,18 +15,42 @@ export const router = () => {
 
   socket.onopen = () => {
     console.log('✅ WebSocket connecté !');
-    app.innerHTML = home(); // Charge la page d'accueil
+    home(); // Charge la page d'accueil
     socket.send(JSON.stringify({ type: 'get_user' })); // Demande la liste des utilisateurs
 
     // refreshConversations(); // Met à jour les conversations
   };
+
+  socket.onmessage = (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      console.log('📩 Message WebSocket reçu :', data);
+
+      if (data.type === 'connected_users' || data.type === 'new_user') {
+        if (data.content.length > 0 && data.content[0] !== 'No users connected') {
+          console.log('👥 Liste des utilisateurs connectés :', data.content);
+          setupUsersList(data.content);
+        }
+      }
+
+      if (data.type === 'user_disconnected') {
+        if (data.content.length > 0 && data.content[0] !== 'No users connected') {
+          console.log('🚪 Utilisateur déconnecté :', data.content);
+          updateOnlineStatus(data.content, false);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Erreur lors de la réception du message WebSocket :', error);
+    }
+  };
   socket.onerror = (error) => {
     console.error('⚠️ Erreur WebSocket :', error);
-    app.innerHTML = login();
+    login();
   };
+
   socket.onclose = (event) => {
     console.warn('🔌 WebSocket fermé :', event.reason);
-    app.innerHTML = login();
+    login();
   };
 };
 

@@ -3,7 +3,6 @@ package routes
 import (
 	"database/sql"
 	"net/http"
-
 	"realTimeForum/chat"
 	"realTimeForum/functions"
 )
@@ -24,6 +23,10 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
     })
     mux.HandleFunc("/api/logout", func(w http.ResponseWriter, r *http.Request) {
         functions.Logout(db,w,r)
+    })
+
+    mux.HandleFunc("/api/users", func(w http.ResponseWriter, r *http.Request) {
+        functions.GetUsersHandler(w, r, db)
     })
 
     // Serve index.html for all other routes

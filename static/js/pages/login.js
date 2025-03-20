@@ -1,68 +1,118 @@
-import { navigate } from '../navigation.js';
+import { router } from '../router.js';
+import { register } from './register.js';
 
 export const login = () => {
-  const template = `
-       <div class="login-page">
-      <div class="login-container">
-        <h2>Se connecter à <span class="login-logo">RT<span class="logo-highlight">F</span></span></h2>
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="username">Identifiant</label>
-            <input type="text" id="username" name="username" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required>
-          </div>
-          <button class="btn" type="submit">Se connecter</button>
-          <p class="form-footer">
-            Pas encore de compte ? <a href="#" id="registerLink">S'inscrire</a>
-          </p>
-        </form>
-      </div>
-    </div>
-  `;
+  document.body.innerHTML = '';
 
-  const setup = () => {
-    const form = document.getElementById('loginForm');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const identifiant = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+  // Create main container
+  const loginPage = document.createElement('div');
+  loginPage.className = 'login-page';
 
-        try {
-          const response = await fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              identifiant: identifiant,
-              password: password,
-            }),
-          });
+  const loginContainer = document.createElement('div');
+  loginContainer.className = 'login-container';
 
-          if (!response.ok) {
-            throw new Error(`Erreur : ${response.status} ${response.statusText}`);
-          } else {
-            navigate('/home');
-          }
-        } catch (error) {
-          console.error('Erreur de connexion:', error);
-          alert('Erreur lors de la connexion');
-        }
-      });
+  // Create header
+  const header = document.createElement('h2');
+  const logoSpan = document.createElement('span');
+  logoSpan.className = 'login-logo';
+  logoSpan.textContent = 'RT';
+  const highlightSpan = document.createElement('span');
+  highlightSpan.className = 'logo-highlight';
+  highlightSpan.textContent = 'F';
+  header.textContent = 'Se connecter à ';
+  logoSpan.appendChild(highlightSpan);
+  header.appendChild(logoSpan);
+
+  // Create form
+  const form = document.createElement('form');
+  form.id = 'loginForm';
+
+  // Username field
+  const usernameGroup = document.createElement('div');
+  usernameGroup.className = 'form-group';
+  const usernameLabel = document.createElement('label');
+  usernameLabel.htmlFor = 'username';
+  usernameLabel.textContent = 'Identifiant';
+  const usernameInput = document.createElement('input');
+  usernameInput.type = 'text';
+  usernameInput.id = 'username';
+  usernameInput.name = 'username';
+  usernameInput.required = true;
+  usernameGroup.appendChild(usernameLabel);
+  usernameGroup.appendChild(usernameInput);
+
+  // Password field
+  const passwordGroup = document.createElement('div');
+  passwordGroup.className = 'form-group';
+  const passwordLabel = document.createElement('label');
+  passwordLabel.htmlFor = 'password';
+  passwordLabel.textContent = 'Mot de passe';
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'password';
+  passwordInput.id = 'password';
+  passwordInput.name = 'password';
+  passwordInput.required = true;
+  passwordGroup.appendChild(passwordLabel);
+  passwordGroup.appendChild(passwordInput);
+
+  // Submit button
+  const submitButton = document.createElement('button');
+  submitButton.className = 'btn';
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Se connecter';
+
+  // Register link
+  const footer = document.createElement('p');
+  footer.className = 'form-footer';
+  footer.textContent = 'Pas encore de compte ? ';
+  const registerLink = document.createElement('a');
+  registerLink.href = '#';
+  registerLink.id = 'registerLink';
+  registerLink.textContent = "S'inscrire";
+  footer.appendChild(registerLink);
+
+  // Assemble form
+  form.appendChild(usernameGroup);
+  form.appendChild(passwordGroup);
+  form.appendChild(submitButton);
+  form.appendChild(footer);
+
+  // Assemble page
+  loginContainer.appendChild(header);
+  loginContainer.appendChild(form);
+  loginPage.appendChild(loginContainer);
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Empêcher le rechargement de la page
+    log(usernameInput.value, passwordInput.value);
+  });
+
+  registerLink.addEventListener('click', (e) => {
+    register();
+  });
+
+  document.body.appendChild(loginPage);
+};
+
+const log = async (identifiant, password) => {
+  try {
+    const response = await fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        identifiant: identifiant,
+        password: password,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erreur : ${response.status} ${response.statusText}`);
     }
-
-    const registerLink = document.getElementById('registerLink');
-    if (registerLink) {
-      registerLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        navigate('/register');
-      });
-    }
-  };
-
-  return { template, setup };
+    router();
+  } catch (error) {
+    console.error('Erreur de connexion:', error);
+    alert('Erreur lors de la connexion');
+  }
 };

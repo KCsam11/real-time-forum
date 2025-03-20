@@ -159,3 +159,10 @@ export const homeTemplate = `<div class="parent">
         </div>
   </div>
 `;
+const createHome = () => {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = homeTemplate;
+  // Si vous souhaitez retourner le container principal :
+  return wrapper.firstElementChild;
+};
+export { createHome };
