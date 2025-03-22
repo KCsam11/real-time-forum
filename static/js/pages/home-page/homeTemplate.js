@@ -8,10 +8,6 @@ export const homeTemplate = `<div class="parent">
             Créer un nouveau post
         </button>
       </div>
-      <div class="test-buttons">
-        <button id="testMsgBtn" class="btn">Ajouter un message</button>
-        <button id="testNotifBtn" class="btn">Ajouter une notification</button>
-      </div>
       </div>
 
       <div class="div6">
@@ -98,29 +94,6 @@ export const homeTemplate = `<div class="parent">
           </div>
 
             <div class="users-list" id="onlineUsers">
-                <div class="user-item">
-                    <div class="user-avatar">D</div>
-                    <div class="user-info">
-                        <div class="user-name">David</div>
-                        <div class="user-status">En ligne</div>
-                    </div>
-                    <div class="status-indicator online"></div>
-                </div>
-                <div class="user-item">
-                    <div class="user-avatar">E</div>
-                    <div class="user-info">
-                        <div class="user-name">Emma</div>
-                        <div class="user-status">Déconnecté(e)</div>
-                    </div>
-                </div>
-                <div class="user-item">
-                    <div class="user-avatar">F</div>
-                    <div class="user-info">
-                        <div class="user-name">Frank</div>
-                        <div class="user-status">En ligne</div>
-                    </div>
-                    <div class="status-indicator online"></div>
-                </div>
             </div>
         </div>
       </div>
@@ -160,9 +133,8 @@ export const homeTemplate = `<div class="parent">
   </div>
 `;
 const createHome = () => {
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = homeTemplate;
-  // Si vous souhaitez retourner le container principal :
-  return wrapper.firstElementChild;
+  const app = document.createElement('div');
+  app.innerHTML = homeTemplate;
+  return app.firstElementChild;
 };
 export { createHome };

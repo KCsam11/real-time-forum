@@ -1,4 +1,4 @@
-// Objet: Gestion de la liste des utilisateurs
+//// filepath: /Users/kcsam/Desktop/Bureau - MacBook Pro de Sam/zone01/real-time-forum/static/js/pages/home-page/usersList.js
 export function setupUsersList(onlineUsers = []) {
   const section = document.createElement('div');
   section.className = 'users-section';
@@ -26,9 +26,26 @@ export function setupUsersList(onlineUsers = []) {
       usersList.className = 'users-list';
       section.appendChild(usersList);
 
-      users.forEach((user) => {
-        const isOnline = Array.isArray(onlineUsers) && onlineUsers.includes(user.name);
-        console.log(`User ${user.name} online status:`, isOnline);
+      // Marquer chaque utilisateur avec son statut en ligne
+      const usersWithStatus = users.map((user) => ({
+        ...user,
+        isOnline: Array.isArray(onlineUsers) && onlineUsers.includes(user.name),
+      }));
+
+      // Placer les utilisateurs connectés en premier
+      usersWithStatus.sort((a, b) => {
+        if (a.isOnline !== b.isOnline) {
+          return a.isOnline ? -1 : 1;
+        }
+        return a.name.localeCompare(b.name);
+      });
+
+      console.log('Vérification du tri (connectés en premier) :', usersWithStatus);
+
+      usersList.innerHTML = '';
+
+      usersWithStatus.forEach((user) => {
+        console.log(`User ${user.name} online status:`, user.isOnline);
 
         const userItem = document.createElement('div');
         userItem.className = 'user-item';
@@ -48,23 +65,23 @@ export function setupUsersList(onlineUsers = []) {
 
         const userStatus = document.createElement('div');
         userStatus.className = 'user-status';
-        if (isOnline) {
+
+        if (user.isOnline) {
           userStatus.classList.add('online');
+          userStatus.textContent = 'En ligne';
+        } else {
+          userStatus.textContent = 'Déconnecté(e)';
         }
-        userStatus.textContent = isOnline ? 'En ligne' : 'Déconnecté(e)';
 
         userInfo.appendChild(userName);
         userInfo.appendChild(userStatus);
         userItem.appendChild(avatar);
         userItem.appendChild(userInfo);
-
         usersList.appendChild(userItem);
 
-        if (isOnline) {
+        if (user.isOnline) {
           updateOnlineStatus(user.name, true);
         }
-
-        usersList.appendChild(userItem);
       });
     })
     .catch((error) => {
@@ -81,11 +98,7 @@ export function setupUsersList(onlineUsers = []) {
 
 // pour mettre à jour le statut en ligne
 export function updateOnlineStatus(userName, isOnline) {
-  console.log(`Updating status for ${userName} to ${isOnline}`);
-
-  // Sélectionner l'élément par le nom d'utilisateur
   const userItem = document.querySelector(`.user-item[data-username="${userName}"]`);
-
   if (userItem) {
     const userStatus = userItem.querySelector('.user-status');
     if (userStatus) {
@@ -101,15 +114,33 @@ export function updateOnlineStatus(userName, isOnline) {
 
     // Gérer l'indicateur de statut
     let statusIndicator = userItem.querySelector('.status-indicator');
-    if (isOnline && !statusIndicator) {
-      statusIndicator = document.createElement('div');
-      statusIndicator.className = 'status-indicator online';
-      userItem.appendChild(statusIndicator);
-    } else if (!isOnline && statusIndicator) {
+    if (isOnline) {
+      if (!statusIndicator) {
+        statusIndicator = document.createElement('div');
+        statusIndicator.className = 'status-indicator online';
+        userItem.appendChild(statusIndicator);
+      }
+    } else if (statusIndicator) {
       statusIndicator.remove();
     }
-  } else {
-    console.log(`User item not found for ${userName}`);
+  }
+
+  // Réorganiser tous les éléments après la mise à jour
+  const usersList = document.querySelector('.users-list');
+  if (usersList) {
+    const items = Array.from(usersList.children);
+    const sortedItems = items.sort((a, b) => {
+      const aOnline = a.querySelector('.user-status.online') !== null;
+      const bOnline = b.querySelector('.user-status.online') !== null;
+      if (aOnline !== bOnline) return aOnline ? -1 : 1;
+      return 0;
+    });
+
+    // Préserver les éléments et leurs états
+    while (usersList.firstChild) {
+      usersList.removeChild(usersList.firstChild);
+    }
+    sortedItems.forEach((item) => usersList.appendChild(item));
   }
 }
 

@@ -71,7 +71,10 @@ func (h *Hub) HandleConnections(db *sql.DB, w http.ResponseWriter, r *http.Reque
 		conn.Close()
 	}()
 
-	log.Println("✅ Nouveau client WebSocket connecté")
+	log.Println("┌──────────────────────────────────────┐")
+    log.Println("│  ✅ Nouveau client WebSocket connecté│")
+    log.Printf("│  👤 Utilisateur: %-20s│\n", username)
+    log.Println("└──────────────────────────────────────┘")
 
 	// Lecture des messages envoyés par le client
 	for {
