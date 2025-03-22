@@ -773,12 +773,23 @@ body {
   top: 6%;
   bottom: 0;
   width: 340px;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
 }
 
 .chat-container.show-chat {
   transform: translateX(0);
+}
+.show-chat {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hide-chat {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
 }
 .parent {
   display: grid;

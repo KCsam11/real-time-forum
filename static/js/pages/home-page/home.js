@@ -11,7 +11,6 @@ export const home = () => {
 
 function setupComponents() {
   setupLogout();
-
   btnToggle();
 
   const usersContainer = document.getElementById('onlineUsers');
@@ -115,58 +114,6 @@ function setupComponents() {
 //       msgPanel.classList.remove('show');
 //     }
 //   });
-// }
-
-// function setupChat() {
-//   const chatContainer = document.getElementById('chatContainer');
-//   const chatCloseBtn = document.getElementById('chatCloseBtn');
-//   const chatInput = document.getElementById('chatInput');
-//   const chatSendBtn = document.getElementById('chatSendBtn');
-//   const chatMessages = document.getElementById('chatMessages');
-
-//   if (chatCloseBtn) {
-//     chatCloseBtn.addEventListener('click', () => {
-//       chatContainer.classList.remove('show-chat');
-//       chatContainer.classList.add('hide-chat');
-//       setTimeout(() => chatContainer.classList.remove('hide-chat'), 300); // Remove class after animation
-//     });
-//   }
-
-//   if (chatInput) {
-//     chatInput.addEventListener('keypress', (e) => {
-//       if (e.key === 'Enter' && !e.shiftKey) {
-//         e.preventDefault();
-//         sendMessage();
-//       }
-//     });
-
-//     // Auto-resize textarea
-//     chatInput.addEventListener('input', () => {
-//       chatInput.style.height = 'auto';
-//       chatInput.style.height = chatInput.scrollHeight + 'px';
-//     });
-//   }
-
-//   if (chatSendBtn) {
-//     chatSendBtn.addEventListener('click', sendMessage);
-//   }
-
-//   function sendMessage() {
-//     const message = chatInput.value.trim();
-//     if (message) {
-//       const messageElement = document.createElement('div');
-//       messageElement.className = 'chat-message';
-//       messageElement.innerHTML = `
-//         <span class="username">User</span>
-//         <span class="message-text">${message}</span>
-//       `;
-//       chatMessages.innerHTML = ''; // Enlève le message "Pas de messages"
-//       chatMessages.appendChild(messageElement);
-//       chatInput.value = '';
-//       chatInput.style.height = 'auto';
-//       chatMessages.scrollTop = chatMessages.scrollHeight;
-//     }
-//   }
 // }
 
 // function setupUsersList() {

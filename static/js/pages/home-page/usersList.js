@@ -1,4 +1,5 @@
-//// filepath: /Users/kcsam/Desktop/Bureau - MacBook Pro de Sam/zone01/real-time-forum/static/js/pages/home-page/usersList.js
+import { setupChat } from './setupMsg.js';
+
 export function setupUsersList(onlineUsers = []) {
   const section = document.createElement('div');
   section.className = 'users-section';
@@ -82,6 +83,13 @@ export function setupUsersList(onlineUsers = []) {
         if (user.isOnline) {
           updateOnlineStatus(user.name, true);
         }
+
+        const chatHandler = () => {
+          const username = user.name;
+          const userId = user.id;
+          setupChat(username, userId);
+        };
+        userItem.addEventListener('click', chatHandler);
       });
     })
     .catch((error) => {
