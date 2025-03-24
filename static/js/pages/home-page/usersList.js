@@ -27,78 +27,97 @@ export function setupUsersList(onlineUsers = []) {
       usersList.className = 'users-list';
       section.appendChild(usersList);
 
-      // Marquer chaque utilisateur avec son statut en ligne
-      const usersWithStatus = users.map((user) => ({
-        ...user,
-        isOnline: Array.isArray(onlineUsers) && onlineUsers.includes(user.name),
-      }));
+      fetch('http://localhost:8080/api/current-user', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          // Vérifier le Content-Type de la réponse
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            throw new TypeError("La réponse n'est pas du JSON!");
+          }
+          return response.json();
+        })
+        .then((currentUser) => {
+          const filteredUsers = users.filter((user) => user.id !== currentUser.data.ID);
 
-      // Placer les utilisateurs connectés en premier
-      usersWithStatus.sort((a, b) => {
-        if (a.isOnline !== b.isOnline) {
-          return a.isOnline ? -1 : 1;
-        }
-        return a.name.localeCompare(b.name);
-      });
+          // Marquer chaque utilisateur avec son statut en ligne
+          const usersWithStatus = filteredUsers.map((user) => ({
+            ...user,
+            isOnline: Array.isArray(onlineUsers) && onlineUsers.includes(user.name),
+          }));
 
-      console.log('Vérification du tri (connectés en premier) :', usersWithStatus);
+          // Placer les utilisateurs connectés en premier
+          usersWithStatus.sort((a, b) => {
+            if (a.isOnline !== b.isOnline) {
+              return a.isOnline ? -1 : 1;
+            }
+            return a.name.localeCompare(b.name);
+          });
 
-      usersList.innerHTML = '';
+          usersList.innerHTML = '';
 
-      usersWithStatus.forEach((user) => {
-        console.log(`User ${user.name} online status:`, user.isOnline);
+          usersWithStatus.forEach((user) => {
+            const userItem = document.createElement('div');
+            userItem.className = 'user-item';
+            userItem.setAttribute('data-user-id', user.id);
+            userItem.setAttribute('data-username', user.name);
 
-        const userItem = document.createElement('div');
-        userItem.className = 'user-item';
-        userItem.setAttribute('data-user-id', user.id);
-        userItem.setAttribute('data-username', user.name);
+            const avatar = document.createElement('div');
+            avatar.className = 'user-avatar';
+            avatar.textContent = user.name.charAt(0).toUpperCase();
 
-        const avatar = document.createElement('div');
-        avatar.className = 'user-avatar';
-        avatar.textContent = user.name.charAt(0).toUpperCase();
+            const userInfo = document.createElement('div');
+            userInfo.className = 'user-info';
 
-        const userInfo = document.createElement('div');
-        userInfo.className = 'user-info';
+            const userName = document.createElement('div');
+            userName.className = 'user-name';
+            userName.textContent = user.name;
 
-        const userName = document.createElement('div');
-        userName.className = 'user-name';
-        userName.textContent = user.name;
+            const userStatus = document.createElement('div');
+            userStatus.className = 'user-status';
 
-        const userStatus = document.createElement('div');
-        userStatus.className = 'user-status';
+            if (user.isOnline) {
+              userStatus.classList.add('online');
+              userStatus.textContent = 'En ligne';
+            } else {
+              userStatus.textContent = 'Déconnecté(e)';
+            }
 
-        if (user.isOnline) {
-          userStatus.classList.add('online');
-          userStatus.textContent = 'En ligne';
-        } else {
-          userStatus.textContent = 'Déconnecté(e)';
-        }
+            userInfo.appendChild(userName);
+            userInfo.appendChild(userStatus);
+            userItem.appendChild(avatar);
+            userItem.appendChild(userInfo);
+            usersList.appendChild(userItem);
 
-        userInfo.appendChild(userName);
-        userInfo.appendChild(userStatus);
-        userItem.appendChild(avatar);
-        userItem.appendChild(userInfo);
-        usersList.appendChild(userItem);
+            if (user.isOnline) {
+              updateOnlineStatus(user.name, true);
+            }
 
-        if (user.isOnline) {
-          updateOnlineStatus(user.name, true);
-        }
-
-        const chatHandler = () => {
-          const username = user.name;
-          const userId = user.id;
-          setupChat(username, userId);
-        };
-        userItem.addEventListener('click', chatHandler);
-      });
-    })
-    .catch((error) => {
-      console.error('Erreur:', error);
-      section.innerHTML = '';
-      const errorMsg = document.createElement('div');
-      errorMsg.className = 'error';
-      errorMsg.textContent = `Erreur lors de la récupération des utilisateurs: ${error.message}`;
-      section.appendChild(errorMsg);
+            const chatHandler = () => {
+              const username = user.name;
+              const userId = user.id;
+              setupChat(username, userId);
+            };
+            userItem.addEventListener('click', chatHandler);
+          });
+        })
+        .catch((error) => {
+          console.error('Erreur:', error);
+          section.innerHTML = '';
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'error';
+          errorMsg.textContent = `Erreur lors de la récupération des utilisateurs: ${error.message}`;
+          section.appendChild(errorMsg);
+        });
     });
 
   return section;
@@ -110,7 +129,6 @@ export function updateOnlineStatus(userName, isOnline) {
   if (userItem) {
     const userStatus = userItem.querySelector('.user-status');
     if (userStatus) {
-      console.log(`Found status element for ${userName}`);
       userStatus.textContent = isOnline ? 'En ligne' : 'Déconnecté(e)';
 
       if (isOnline) {

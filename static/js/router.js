@@ -2,6 +2,8 @@ import { home } from './pages/home-page/home.js';
 import { setupUsersList } from './pages/home-page/usersList.js';
 import { updateOnlineStatus } from './pages/home-page/usersList.js';
 import { login } from './pages/login.js';
+// import { privateMessage } from './pages/home-page/chat/pvMess.js';
+// import { majMessage } from './pages/home-page/chat/pvMess.js';
 
 export let socket = null;
 
@@ -38,6 +40,10 @@ export const router = () => {
           console.log('🚪 Utilisateur déconnecté :', data.content);
           updateOnlineStatus(data.content, false);
         }
+      }
+      if (data.type === 'private') {
+        //privateMessage(data.content);
+        //majMessage(data.content);
       }
     } catch (error) {
       console.error('❌ Erreur lors de la réception du message WebSocket :', error);

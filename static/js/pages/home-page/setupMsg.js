@@ -5,8 +5,13 @@ export function setupChat(username, userId) {
     // Update existing chat
     chatContainer.classList.add('show-chat');
     const chatHeaderTitle = chatContainer.querySelector('.chat-header-left h3');
+    const chatInput = document.getElementById('chatInput'); // Définir chatInput ici
+
     if (chatHeaderTitle) {
       chatHeaderTitle.textContent = username;
+    }
+    if (chatInput) {
+      chatInput.placeholder = `Envoyer un message à @${username}`;
     }
     return;
   }
@@ -34,7 +39,7 @@ export function setupChat(username, userId) {
         <div class="chat-input-container">
           <textarea 
             class="chat-input" 
-            placeholder="Envoyer un message"
+            placeholder="Envoyer un message à @${username}"
             id="chatInput"
             rows="1"
           ></textarea>
