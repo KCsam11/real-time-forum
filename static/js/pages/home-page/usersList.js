@@ -106,6 +106,7 @@ export function setupUsersList(onlineUsers = []) {
               const username = user.name;
               const userId = user.id;
               setupChat(username, userId);
+              // usersList.classList.add(`chat-open-${userId}`);
             };
             userItem.addEventListener('click', chatHandler);
           });

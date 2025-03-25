@@ -5,20 +5,28 @@ export const privateMessage = (data) => {
 
   console.log('📩 Nouveau message privé reçu de :', user, '| Message :', msg, '| Heure :', timestamp);
 
-  // Cherche la modal correspondant à l’utilisateur
-  const modal = document.getElementById(`chat-modal-${user}`);
-  if (!modal) {
+  // Cherche le conteneur de chat correspondant à l'utilisateur
+  const chatContainer = document.querySelector(`.chat-container[data-user-id="${user}"]`);
+  console.log('📦 Recherche conteneur pour userId:', user);
+  console.log('📦 Conteneur trouvé:', chatContainer);
+
+  if (!chatContainer) {
+    // Try alternative selectors
+    const activeChat = document.querySelector('.chat-container.show-chat');
+    if (!activeChat) {
+      console.log('❌ Aucun chat actif trouvé');
+      return;
+    }
     return;
   }
 
-  // Vérifie l'utilisateur affiché dans la modal (optionnel si tu veux être sûr)
-  const chatUser = modal.querySelector('.chat-user').textContent;
-  if (chatUser !== user) {
+  // Get messages container
+  const chatMessages = chatContainer.querySelector('.chat-messages') || document.getElementById(`messages-${user}`);
+
+  if (!chatMessages) {
+    console.log('❌ Zone de messages non trouvée');
     return;
   }
-
-  // Sélectionne le body du chat
-  const chatBody = modal.querySelector('#chat-body');
 
   // Formatage de la date
   const date = new Date(timestamp);
@@ -33,17 +41,24 @@ export const privateMessage = (data) => {
     })
     .replace(',', '');
 
-  // Crée un élément de message reçu
+  // Crée un élément de message reçu avec animation
   const messageElement = document.createElement('div');
-  messageElement.classList.add('chat-message', 'received');
+  messageElement.classList.add('chat-message', 'received', 'new-message');
   messageElement.innerHTML = `
-        <p>${msg}</p>
-        <small class="chat-time">${formattedTime}</small>
-    `;
+    <span class="message-text">${msg}</span>
+    <span class="message-time">${formattedTime}</span>
+  `;
 
   // Ajoute le message au chat
-  chatBody.appendChild(messageElement);
+  chatMessages.appendChild(messageElement);
 
   // Fait défiler vers le dernier message
-  chatBody.scrollTop = chatBody.scrollHeight;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Notification sonore si la fenêtre n'est pas active
+  // if (!document.hasFocus()) {
+  //   const audio = new Audio('/static/sounds/notification.mp3');
+  //   audio.volume = 0.5;
+  //   audio.play().catch(() => console.log('🔇 Lecture audio bloquée'));
+  // }
 };

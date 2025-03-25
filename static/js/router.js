@@ -2,8 +2,8 @@ import { home } from './pages/home-page/home.js';
 import { setupUsersList } from './pages/home-page/usersList.js';
 import { updateOnlineStatus } from './pages/home-page/usersList.js';
 import { login } from './pages/login.js';
-// import { privateMessage } from './pages/home-page/chat/pvMess.js';
-// import { majMessage } from './pages/home-page/chat/pvMess.js';
+import { privateMessage } from './pages/home-page/chat/pvMess.js';
+//import { majMessage } from './pages/home-page/chat/pvMess.js';
 
 export let socket = null;
 
@@ -42,7 +42,8 @@ export const router = () => {
         }
       }
       if (data.type === 'private') {
-        //privateMessage(data.content);
+        console.log('📩 Message privé reçu :', data.content);
+        privateMessage(data.content);
         //majMessage(data.content);
       }
     } catch (error) {

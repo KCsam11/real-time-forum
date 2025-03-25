@@ -10,68 +10,99 @@ export const majMessage = (data) => {
   const sectionContent = document.querySelector('#messages-id');
   let chatUser = document.getElementById(`chat-${user}`);
 
-  // Vérifie si la modal pour cet utilisateur est déjà ouverte (ID "chat-modal-{user}")
+  // Log pour debug
+  console.log('📝 Mise à jour message :', { msg, user, timestamp });
+
+  // Formatage de la date en français
+  const date = new Date(timestamp);
+  const formattedTime = date
+    .toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    })
+    .replace(',', '');
+
+  // Vérifie si la modal est ouverte
   const userModal = document.getElementById(`chat-modal-${user}`);
 
-  // Fonction de mise à jour de la conversation existante
+  // Mise à jour d'une conversation existante
   const updateConversation = (conversationElem) => {
-    // Mise à jour du dernier message
+    // Mise à jour du contenu
     conversationElem.querySelector('.last-message').innerHTML = `<strong>${user}:</strong> ${msg}`;
+    conversationElem.querySelector('.message-date').textContent = formattedTime;
 
-    // Mise à jour de la date
-    const formattedDate = formatDate(timestamp);
-    conversationElem.querySelector('.message-date').textContent = formattedDate;
+    // Gestion de la notification
+    // if (!userModal) {
+    //   let notificationDot = conversationElem.querySelector('.notification-dot');
+    //   if (!notificationDot) {
+    //     notificationDot = createNotificationDot();
+    //     conversationElem.appendChild(notificationDot);
+    //   }
+    // }
 
-    // Ajoute la notification seulement si la modal n'est pas ouverte
-    if (!userModal) {
-      let notificationDot = conversationElem.querySelector('.notification-dot');
-      if (!notificationDot) {
-        notificationDot = createNotificationDot();
-        conversationElem.appendChild(notificationDot);
-      }
-    }
-
-    // Retirer complètement l'élément du DOM
+    // Remonter la conversation en haut
     conversationElem.remove();
-
-    // PUIS l'ajouter de nouveau en première position
     sectionContent.prepend(conversationElem);
-
-    // Ajouter un log pour vérifier
-    console.log('🔄 Conversation remontée:', user);
+    console.log('🔄 Conversation mise à jour et remontée:', user);
   };
 
   if (chatUser) {
-    // Conversation déjà présente : mise à jour
     updateConversation(chatUser);
   } else {
-    // Nouvelle conversation
-    const msgElement = createMessageElement(
+    // Création d'une nouvelle conversation
+    const newConversation = createMessageElement(
       {
         username: user,
         last_sender: user,
         last_message: msg,
-        // ⚠️ Remplace la date brute par la date formatée,
-        //    ou envoie seulement le timestamp et formate dans createMessageElement.
         last_message_date: timestamp,
       },
       messageModal
     );
-    refreshConversations();
-    // Si la modal pour cet utilisateur n'est pas déjà ouverte,
-    // on y ajoute le dot de notification
+
+    // Ajouter la notification si nécessaire
     if (!userModal) {
-      const notificationDot = createNotificationDot();
-      msgElement.appendChild(notificationDot);
+      newConversation.appendChild(createNotificationDot());
     }
 
-    // Ajout du message en haut de la liste
-    sectionContent.prepend(msgElement);
+    // Ajouter en haut de la liste
+    sectionContent.prepend(newConversation);
+    console.log('✨ Nouvelle conversation créée:', user);
+
+    // Rafraîchir la liste des conversations
+    refreshConversations();
   }
 };
 
+// Création du point de notification
 const createNotificationDot = () => {
-  const notificationDot = document.createElement('span');
-  notificationDot.classList.add('notification-dot');
-  return notificationDot;
+  const dot = document.createElement('span');
+  dot.classList.add('notification-dot');
+  return dot;
 };
+
+// Ajout du CSS pour la notification si pas déjà présent
+const style = document.createElement('style');
+style.textContent = `
+  .notification-dot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: #772ce8;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 0.5; }
+    100% { transform: scale(0.95); opacity: 0.9; }
+  }
+`;
+document.head.appendChild(style);
