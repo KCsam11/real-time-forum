@@ -99,6 +99,7 @@ export function setupNotif() {
   document.addEventListener('click', (e) => {
     if (!notifBtn.contains(e.target) && !notifPanel.contains(e.target)) {
       notifPanel.classList.remove('show');
+      loadNotifications();
     }
   });
 
