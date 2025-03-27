@@ -7,10 +7,11 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func (h *Hub) SendNotificationMessage(username string) {
+func (h *Hub) SendNotificationMessage(notif models.Notification, username string) {
 	// Construire le message de notification
 	notification := models.Message{
 		Type: "notification",
+		Notification: notif,
 	}
 
 	// Sérialiser en JSON

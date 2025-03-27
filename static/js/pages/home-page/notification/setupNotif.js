@@ -21,7 +21,7 @@ export function setupNotif() {
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const notifications = await response.json();
-      console.log('🔔 Notifications chargées:', notifications);
+      console.log('🔔 Notifications chargées:', notifications.notifications);
 
       updateNotificationDisplay(notifications.notifications);
     } catch (error) {
@@ -47,12 +47,11 @@ export function setupNotif() {
       notifItem.className = `notification-item ${!notif.read ? 'unread' : ''}`;
       notifItem.innerHTML = `
               <div class="notification-content">
-                  <p>${notif.message}</p>
+                  <p>${notif.sender}</p>
                   <span class="notification-time">${formatDate(notif.created_at)}</span>
               </div>
           `;
       notifItem.addEventListener('click', () => {
-        console.log('Notification clicked:', notif.message);
         markAsRead(notif.id);
       });
       notifList.appendChild(notifItem);
@@ -89,11 +88,12 @@ export function setupNotif() {
 
   // Event Listeners
   notifBtn.addEventListener('click', () => {
-    notifPanel.classList.toggle('show');
+    console.log('Clic sur le bouton de notification');
+    notifPanel.classList.add('show');
     // Réinitialiser le compteur
     notifCount.textContent = '0';
     notifCount.style.display = 'none';
-    markAsRead();
+    // markAsRead();
   });
 
   document.addEventListener('click', (e) => {

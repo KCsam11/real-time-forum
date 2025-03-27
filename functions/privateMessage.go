@@ -87,11 +87,29 @@ func handleCreateMessage(db *sql.DB, w http.ResponseWriter, r *http.Request, use
 	if err != nil {
 		log.Printf("⚠️ Erreur création notification: %v", err)
 	}
+	
+	IdNotif, err := utils.GetLastNotificationID(db, userId2, userId)
+
+	if err != nil {
+		log.Printf("⚠️ Erreur création notification: %v", err)
+	}
 
 	hub.BroadcastPrivateMessage(db, messageStruc.Message, userId, userId2)
 	
+	senderName := utils.GetUsernameByID(db, userId)
+
+
 	 // Notifier le client
-	hub.SendNotificationMessage(messageStruc.Receiver)
+	 notification := models.Notification{
+		Id:        IdNotif,
+		ReceiverID: userId2,
+		SenderID:  senderName,
+		Type:      "message",
+		Content:   notifContent,
+		RelatedID: int(messageId),
+		Status:    "unread",
+	}
+	hub.SendNotificationMessage(notification, messageStruc.Receiver)
 
 	// Répondre avec l'ID du message inséré
 	response := map[string]interface{}{

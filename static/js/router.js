@@ -49,7 +49,8 @@ export const router = () => {
         //majMessage(data.content);
       }
       if (data.type === 'notification') {
-        notif();
+        console.log('🔔 Notification reçue :', data.notification);
+        notif(data.notification.sender_id, data.notification.id);
       }
 
       if (data.type === 'is_typing' || data.type === 'is_not_typing') {
