@@ -1,4 +1,4 @@
-import { socket } from '../../router.js';
+import { socket } from '../../../router.js';
 
 let activeChat = null;
 let isTypingSent = false;
@@ -228,8 +228,6 @@ export async function setupChat(username, userId, parentContainer = document.que
         console.log('📡 Réponse POST reçue :', response.status);
         if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
 
-        //MessageStorage.saveMessage(userId, messageText, true);
-
         const messageTrailing = JSON.stringify({
           type: 'is_not_typing',
           content: username,
@@ -310,14 +308,4 @@ export async function setupChat(username, userId, parentContainer = document.que
   }
 
   const debouncedStopTyping = debounce(() => sendTypingStatus(false), 1000);
-
-  // Add WebSocket message handler
-  socket.addEventListener('message', (event) => {
-    const data = JSON.parse(event.data);
-    if (data.type === 'is_typing' && data.content === username) {
-      document.getElementById(`typing-${userId}`).style.display = 'block';
-    } else if (data.type === 'is_not_typing' && data.content === username) {
-      document.getElementById(`typing-${userId}`).style.display = 'none';
-    }
-  });
 }

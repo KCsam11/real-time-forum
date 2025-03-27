@@ -3,6 +3,8 @@ import { setupUsersList } from './pages/home-page/usersList.js';
 import { updateOnlineStatus } from './pages/home-page/usersList.js';
 import { login } from './pages/login.js';
 import { privateMessage } from './pages/home-page/chat/pvMess.js';
+import { setupNotif } from './pages/home-page/notification/setupNotif.js';
+import { notif } from './pages/home-page/notification/notif.js';
 //import { majMessage } from './pages/home-page/chat/pvMess.js';
 
 export let socket = null;
@@ -45,6 +47,13 @@ export const router = () => {
         console.log('📩 Message privé reçu :', data.content);
         privateMessage(data.content);
         //majMessage(data.content);
+      }
+      if (data.type === 'notification') {
+        notif();
+      }
+
+      if (data.type === 'is_typing' || data.type === 'is_not_typing') {
+        // bubbleAnim(data.content, data.is_typing);
       }
     } catch (error) {
       console.error('❌ Erreur lors de la réception du message WebSocket :', error);

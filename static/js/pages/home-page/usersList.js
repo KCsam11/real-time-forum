@@ -1,4 +1,4 @@
-import { setupChat } from './setupMsg.js';
+import { setupChat } from './chat/setupMsg.js';
 
 export function setupUsersList(onlineUsers = []) {
   const section = document.createElement('div');

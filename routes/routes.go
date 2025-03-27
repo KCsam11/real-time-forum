@@ -37,6 +37,11 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
         functions.PrivateMessage(db, w, r, hub)
     })
 
+    mux.HandleFunc("/api/notif", func(w http.ResponseWriter, r *http.Request) {
+        functions.Notification(db, w, r)
+    })
+    
+    
     // Serve index.html for all other routes
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         http.ServeFile(w, r, "static/index.html")

@@ -7,8 +7,6 @@ export const privateMessage = (data) => {
 
   // Cherche le conteneur de chat correspondant à l'utilisateur
   const chatContainer = document.querySelector(`.chat-container[data-user-id="${user}"]`);
-  console.log('📦 Recherche conteneur pour userId:', user);
-  console.log('📦 Conteneur trouvé:', chatContainer);
 
   if (!chatContainer) {
     // Try alternative selectors
@@ -55,9 +53,8 @@ export const privateMessage = (data) => {
   // Fait défiler vers le dernier message
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  // Notification sonore si la fenêtre n'est pas active
-  // if (!document.hasFocus()) {
-  //   const audio = new Audio('/static/sounds/notification.mp3');
+  // if (!document.hasFocus() || document.hidden) {
+  //   const audio = new Audio('/static/notif.mp3');
   //   audio.volume = 0.5;
   //   audio.play().catch(() => console.log('🔇 Lecture audio bloquée'));
   // }

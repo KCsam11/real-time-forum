@@ -3,6 +3,7 @@ package functions
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"realTimeForum/chat"
@@ -37,6 +38,8 @@ func PrivateMessage(db *sql.DB, w http.ResponseWriter, r *http.Request, hub *cha
 	default:
 		utils.SendErrorResponse(w, http.StatusMethodNotAllowed, "Method Not Allowed")
 	}
+
+
 }
 
 func handleCreateMessage(db *sql.DB, w http.ResponseWriter, r *http.Request, userId string, hub *chat.Hub) {
@@ -77,8 +80,18 @@ func handleCreateMessage(db *sql.DB, w http.ResponseWriter, r *http.Request, use
 		utils.SendErrorResponse(w, http.StatusInternalServerError, "Erreur interne lors de l'envoi du message")
 		return
 	}
+	
+	// Créer la notification
+	notifContent := fmt.Sprintf("Nouveau message de %s", messageStruc.Receiver)
+	err = utils.InsertNotification(db, userId2, userId, "message", int(messageId), notifContent)
+	if err != nil {
+		log.Printf("⚠️ Erreur création notification: %v", err)
+	}
 
 	hub.BroadcastPrivateMessage(db, messageStruc.Message, userId, userId2)
+	
+	 // Notifier le client
+	hub.SendNotificationMessage(messageStruc.Receiver)
 
 	// Répondre avec l'ID du message inséré
 	response := map[string]interface{}{

@@ -1,5 +1,6 @@
 import { createHome } from './homeTemplate.js';
 import { setupLogout } from './logout.js';
+import { setupNotif } from './notification/setupNotif.js';
 import { setupUsersList, btnToggle } from './usersList.js';
 
 export const home = () => {
@@ -13,9 +14,10 @@ function setupComponents() {
   setupLogout();
   btnToggle();
 
+  setupNotif();
+
   const usersContainer = document.getElementById('onlineUsers');
   if (usersContainer) {
-    // Récupérer la liste des utilisateurs en ligne depuis votre websocket ou autre source
     const onlineUsers = []; // Liste des IDs des utilisateurs connectés
     const dynamicUsers = setupUsersList(onlineUsers);
     usersContainer.parentNode.replaceChild(dynamicUsers, usersContainer);
