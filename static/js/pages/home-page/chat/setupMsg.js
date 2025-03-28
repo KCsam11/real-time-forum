@@ -199,6 +199,12 @@ export async function setupChat(username, userId, parentContainer = document.que
 
       console.log('📩 Envoi du message :', messageText);
 
+      const noMessagesElement = chatMessages.querySelector('.no-messages');
+      console.log('No messages element:', noMessagesElement);
+      if (noMessagesElement) {
+        noMessagesElement.remove();
+      }
+
       // Création de la date pour le message envoyé
       const now = new Date();
       const formattedTime = formatDate(now);
