@@ -5,6 +5,7 @@ import { login } from './pages/login.js';
 import { privateMessage } from './pages/home-page/chat/pvMess.js';
 import { setupNotif } from './pages/home-page/notification/setupNotif.js';
 import { notif } from './pages/home-page/notification/notif.js';
+import { initializeMessagePanel } from './pages/home-page/conversacion/setupConver.js';
 //import { majMessage } from './pages/home-page/chat/pvMess.js';
 
 export let socket = null;
@@ -22,7 +23,7 @@ export const router = () => {
     home(); // Charge la page d'accueil
     socket.send(JSON.stringify({ type: 'get_user' })); // Demande la liste des utilisateurs
 
-    // refreshConversations(); // Met à jour les conversations
+    initializeMessagePanel(); // Met à jour les conversations
   };
 
   socket.onmessage = (event) => {

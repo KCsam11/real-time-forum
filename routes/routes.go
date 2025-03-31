@@ -41,7 +41,10 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
         functions.Notification(db, w, r)
     })
     
-    
+    mux.HandleFunc("/api/conversation", func(w http.ResponseWriter, r *http.Request) {
+		functions.Conversation(db, w, r)
+	})
+
     // Serve index.html for all other routes
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         http.ServeFile(w, r, "static/index.html")

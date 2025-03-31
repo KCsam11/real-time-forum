@@ -2,6 +2,7 @@ import { createHome } from './homeTemplate.js';
 import { setupLogout } from './logout.js';
 import { setupNotif } from './notification/setupNotif.js';
 import { setupUsersList, btnToggle } from './usersList.js';
+// import { refreshConversations } from './conversacion/setupConver.js';
 
 export const home = () => {
   const homePage = createHome();
@@ -16,6 +17,7 @@ function setupComponents() {
 
   setupNotif();
 
+  // refreshConversations();
   const usersContainer = document.getElementById('onlineUsers');
   if (usersContainer) {
     const onlineUsers = []; // Liste des IDs des utilisateurs connectés
