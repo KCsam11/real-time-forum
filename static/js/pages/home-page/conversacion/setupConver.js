@@ -5,6 +5,12 @@ export function initializeMessagePanel() {
   const msgPanel = document.getElementById('msgPanel');
   const msgList = document.getElementById('msgList');
 
+  const msgPanelActif = document.querySelector('.message-panel.active');
+  if (msgPanelActif) {
+    loadConversations();
+    console.log('Le panneau de message est déjà actif.');
+  }
+
   // Toggle message panel visibility
   msgBtn.addEventListener('click', (e) => {
     e.stopPropagation(); // Prevent event from bubbling up
@@ -26,19 +32,26 @@ export function initializeMessagePanel() {
       const response = await fetch('/api/conversation');
       const conversations = await response.json();
       console.log('Conversations:', conversations);
-
-      if (conversations.length === 0) {
-        msgList.innerHTML = '<p class="no-messages">Aucune conversation</p>';
+      const hasMessages = conversations.some((conv) => conv.last_message && conv.last_message.trim() !== '');
+      if (!hasMessages) {
+        msgList.innerHTML = '<p class="no-messages">Aucun message</p>';
         return;
       }
+      // Trier les conversations par date de dernier message
+      const sortedConversations = conversations.sort((a, b) => {
+        const dateA = new Date(a.last_message_date);
+        const dateB = new Date(b.last_message_date);
+        return dateB - dateA; // Tri décroissant (plus récent en premier)
+      });
 
-      msgList.innerHTML = conversations
+      msgList.innerHTML = sortedConversations
         .map((conv) => {
-          // Rechercher l'élément utilisateur dans la liste des utilisateurs
           const userElement = document.querySelector(`.user-item[data-username="${conv.username}"]`);
-          // Vérifier si l'utilisateur a la classe "online" dans son statut
           const isOnline = userElement?.querySelector('.user-status.online') !== null;
-          console.log('isOnline:', isOnline);
+          if (conv.last_message === '' && conv.last_message_date === '') {
+            return null;
+          }
+
           return `
             <div class="conversation-item" data-user-id="${conv.username}">
                 <div class="conversation-avatar">
@@ -53,6 +66,7 @@ export function initializeMessagePanel() {
             </div>
           `;
         })
+        .filter((item) => item !== null)
         .join('');
 
       // Add click event for each conversation

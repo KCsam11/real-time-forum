@@ -52,4 +52,4 @@ func sendConversation(db *sql.DB, w http.ResponseWriter, r *http.Request, userId
         utils.SendErrorResponse(w, http.StatusInternalServerError, "Failed to encode conversations")
         return
     }
-}
+}   

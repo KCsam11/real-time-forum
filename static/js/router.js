@@ -5,8 +5,8 @@ import { login } from './pages/login.js';
 import { privateMessage } from './pages/home-page/chat/pvMess.js';
 import { setupNotif } from './pages/home-page/notification/setupNotif.js';
 import { notif } from './pages/home-page/notification/notif.js';
+// import { refreshConversations } from './pages/home-page/conversacion/refreshCon.js';
 import { initializeMessagePanel } from './pages/home-page/conversacion/setupConver.js';
-//import { majMessage } from './pages/home-page/chat/pvMess.js';
 
 export let socket = null;
 
@@ -52,6 +52,8 @@ export const router = () => {
       if (data.type === 'notification') {
         console.log('🔔 Notification reçue :', data.notification);
         notif(data.notification.sender_id, data.notification.id);
+        console.log('Notification:', data.notification);
+        initializeMessagePanel();
       }
 
       if (data.type === 'is_typing' || data.type === 'is_not_typing') {

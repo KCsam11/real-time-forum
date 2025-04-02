@@ -118,6 +118,14 @@ export function setupNotif() {
 
   // Event Listeners
   notifBtn.addEventListener('click', async () => {
+    const messageNotitBtn = document.querySelector('.message-btn');
+    console.log('messageNotitBtn', messageNotitBtn);
+    if (messageNotitBtn) {
+      messageNotitBtn.addEventListener('click', () => {
+        notifPanel.classList.remove('show');
+      });
+    }
+
     console.log('Clic sur le bouton de notification');
     notifPanel.classList.add('show');
     // Réinitialiser le compteur
