@@ -117,7 +117,7 @@ export function setupMsgNotif() {
     }
 
     console.log('Clic sur le bouton de messages');
-    msgNotifPanel.classList.toggle('active');
+    msgNotifPanel.classList.add('active');
     // S'assurer que le panneau de conversation est visible quand le panneau est actif
     const conversationPanel = document.querySelector('.conversation-panel');
     if (msgNotifPanel.classList.contains('active')) {

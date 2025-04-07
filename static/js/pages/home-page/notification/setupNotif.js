@@ -81,26 +81,39 @@ export function setupNotif() {
               </div>
           `;
       notifItem.addEventListener('click', () => {
-        markAsRead(notif.id);
+        //markAsRead(notif.id);
       });
       notifList.appendChild(notifItem);
     });
   }
 
-  async function markAsRead(notifId) {
+  async function markAsRead(notifId, markAll = false) {
     try {
+      const requestBody = {
+        notification_id: notifId,
+        mark_all: markAll,
+      };
+
       const response = await fetch('http://localhost:8080/api/notif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify({ id: notifId }),
+        body: JSON.stringify(requestBody),
         credentials: 'include',
       });
 
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const responseText = await response.text();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}, response: ${responseText}`);
+      }
+
+      //await loadNotifications();
     } catch (error) {
-      console.error('❌ Erreur marquage notification:', error);
+      console.error('❌ Error:', error);
+      notifList.innerHTML = '<p class="no-notifications">Error updating notifications</p>';
     }
   }
 
@@ -116,21 +129,19 @@ export function setupNotif() {
   }
 
   // Event Listeners
-  notifBtn.addEventListener('click', async () => {
-    const messageNotitBtn = document.querySelector('.message-btn');
-    if (messageNotitBtn) {
-      messageNotitBtn.addEventListener('click', () => {
-        notifPanel.classList.remove('show');
-      });
-    }
+  const messageNotitBtn = document.querySelector('.message-btn');
+  if (messageNotitBtn) {
+    messageNotitBtn.addEventListener('click', () => {
+      notifPanel.classList.remove('show');
+    });
+  }
 
+  notifBtn.addEventListener('click', async () => {
     console.log('Clic sur le bouton de notification');
     notifPanel.classList.add('show');
-    // Réinitialiser le compteur
-    notifCount.textContent = '0';
-    notifCount.style.display = 'none';
 
-    // Load notifications when clicking the button
+    console.log('Chargement des notifications...');
+    // D'abord charger les notifications
     try {
       const response = await fetch('http://localhost:8080/api/notif', {
         method: 'GET',
@@ -141,7 +152,15 @@ export function setupNotif() {
         credentials: 'include',
       });
       const data = await response.json();
+      console.log('Notifications:', data.notifications);
       updateNotificationDisplay(data.notifications);
+
+      // Ensuite marquer comme lu
+      await markAsRead(0, true);
+
+      // Finalement, masquer le compteur
+      notifCount.textContent = '0';
+      notifCount.style.display = 'none';
     } catch (error) {
       console.error('Error loading notifications:', error);
       notifList.innerHTML = '<p class="no-notifications">Error loading notifications</p>';

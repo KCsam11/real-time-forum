@@ -12,12 +12,14 @@ export const notif = async (senderId, notificationId) => {
 
   const chatContainer = document.querySelector('.chat-container');
   const activeChatUserId = chatContainer?.getAttribute('data-user-id');
+  //const markAsRead = false;
   console.log('Chat container:', chatContainer);
   console.log('Active chat sender ID:', activeChatUserId);
   console.log('Sender ID:', senderId);
 
   // Si le chat est actif avec ce user, marquer la notification comme lue
   if (chatContainer && activeChatUserId === senderId) {
+    //markAsRead = true;
     try {
       // Appel à l'API pour marquer comme lu
       await fetch('http://localhost:8080/api/notif', {
@@ -26,7 +28,8 @@ export const notif = async (senderId, notificationId) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: notificationId,
+          notification_id: notificationId, // Changed to match backend expectation
+          mark_all: true,
         }),
         credentials: 'include',
       });
