@@ -6,7 +6,9 @@ import { privateMessage } from './pages/home-page/chat/pvMess.js';
 import { setupNotif } from './pages/home-page/notification/setupNotif.js';
 import { notif } from './pages/home-page/notification/notif.js';
 // import { refreshConversations } from './pages/home-page/conversacion/refreshCon.js';
-import { initializeMessagePanel } from './pages/home-page/conversacion/setupConver.js';
+//import { initializeMessagePanel } from './pages/home-page/conversacion/setupConver.js';
+import { setupMsgNotif } from './pages/home-page/conversacion/addNotifComment.js';
+//import { setupMsgNotif } from './pages/home-page/conversacion/addNotifComment.js';
 
 export let socket = null;
 
@@ -23,7 +25,7 @@ export const router = () => {
     home(); // Charge la page d'accueil
     socket.send(JSON.stringify({ type: 'get_user' })); // Demande la liste des utilisateurs
 
-    initializeMessagePanel(); // Met à jour les conversations
+    setupMsgNotif(); // Met à jour les notifications de message
   };
 
   socket.onmessage = (event) => {
@@ -53,7 +55,9 @@ export const router = () => {
         console.log('🔔 Notification reçue :', data.notification);
         notif(data.notification.sender_id, data.notification.id);
         console.log('Notification:', data.notification);
-        initializeMessagePanel();
+        setupMsgNotif();
+        //initializeMessagePanel();
+        //setupMsgNotif();
       }
 
       if (data.type === 'is_typing' || data.type === 'is_not_typing') {

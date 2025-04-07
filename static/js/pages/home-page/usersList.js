@@ -20,8 +20,6 @@ export function setupUsersList(onlineUsers = []) {
     .then((response) => response.json())
     .then((users) => {
       section.removeChild(loading);
-      console.log('Tous les utilisateurs:', users);
-      console.log('Utilisateurs en ligne:', onlineUsers);
 
       const usersList = document.createElement('div');
       usersList.className = 'users-list';

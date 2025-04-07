@@ -15,24 +15,25 @@ export const homeTemplate = `<div class="parent">
           <div style="margin-left: auto; display: flex; align-items: center; gap: 16px;">
 
             <div class="message-container">
-                <button class="message-btn" title="Messages" id="msgBtn">
-                    <div class="message-wrapper">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M7.828 13 10 15.172 12.172 13H15V5H5v8h2.828zM10 18l-3-3H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2l-3 3z"/>
-                        </svg>
-                        <span class="message-badge" id="msgCount">0</span>
-                    </div>
-                    <span class="tooltip">Messages</span>
-                </button>
-                <div class="message-panel" id="msgPanel">
-                    <div class="message-header">
-                        <h3>Messages</h3>
-                    </div>
-                    <div class="message-list" id="msgList">
-                        <!-- Messages will be loaded here dynamically -->
-                    </div>
-                </div>
-            </div>
+    <button class="message-btn" title="Messages" id="msgBtn">
+        <div class="message-wrapper">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M7.828 13 10 15.172 12.172 13H15V5H5v8h2.828zM10 18l-3-3H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2l-3 3z"/>
+            </svg>
+            <span class="message-badge" id="msgCount">0</span>
+            <span class="msg-notif-count" id="msgNotifCount">0</span>
+        </div>
+        <span class="tooltip">Messages</span>
+    </button>
+    <div class="message-panel" id="msgPanel">
+        <div class="message-header">
+            <h3>Messages</h3>
+        </div>
+        <div class="message-list" id="msgList">
+            <!-- Messages will be loaded here dynamically -->
+        </div>
+    </div>
+</div>
             
               <div class="notification-container">
                   <button class="notification-btn" title="Notifications" id="notifBtn">

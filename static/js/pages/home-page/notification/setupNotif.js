@@ -21,7 +21,6 @@ export function setupNotif() {
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       const notifications = await response.json();
-      console.log('🔔 Notifications chargées:', notifications.notifications);
 
       updateNotificationDisplay(notifications.notifications);
     } catch (error) {
@@ -119,7 +118,6 @@ export function setupNotif() {
   // Event Listeners
   notifBtn.addEventListener('click', async () => {
     const messageNotitBtn = document.querySelector('.message-btn');
-    console.log('messageNotitBtn', messageNotitBtn);
     if (messageNotitBtn) {
       messageNotitBtn.addEventListener('click', () => {
         notifPanel.classList.remove('show');

@@ -1,8 +1,9 @@
+import { setupMsgNotif } from './conversacion/addNotifComment.js';
 import { createHome } from './homeTemplate.js';
 import { setupLogout } from './logout.js';
 import { setupNotif } from './notification/setupNotif.js';
 import { setupUsersList, btnToggle } from './usersList.js';
-// import { refreshConversations } from './conversacion/setupConver.js';
+//import { refreshConversations } from './conversacion/setupConver.js';
 
 export const home = () => {
   const homePage = createHome();
@@ -17,6 +18,7 @@ function setupComponents() {
 
   setupNotif();
 
+  setupMsgNotif();
   // refreshConversations();
   const usersContainer = document.getElementById('onlineUsers');
   if (usersContainer) {

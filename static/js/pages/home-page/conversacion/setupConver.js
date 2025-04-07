@@ -12,20 +12,20 @@ export function initializeMessagePanel() {
   }
 
   // Toggle message panel visibility
-  msgBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent event from bubbling up
-    msgPanel.classList.toggle('active');
-    if (msgPanel.classList.contains('active')) {
-      loadConversations();
-    }
-  });
+  // msgBtn.addEventListener('click', (e) => {
+  //   e.stopPropagation(); // Prevent event from bubbling up
+  //   msgPanel.classList.toggle('active');
+  //   if (msgPanel.classList.contains('active')) {
+  //     loadConversations();
+  //   }
+  // });
 
-  // Close panel when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!msgPanel.contains(e.target) && !msgBtn.contains(e.target)) {
-      msgPanel.classList.remove('active');
-    }
-  });
+  // // Close panel when clicking outside
+  // document.addEventListener('click', (e) => {
+  //   if (!msgPanel.contains(e.target) && !msgBtn.contains(e.target)) {
+  //     msgPanel.classList.remove('active');
+  //   }
+  // });
 
   async function loadConversations() {
     try {
