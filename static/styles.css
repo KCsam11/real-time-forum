@@ -1628,3 +1628,69 @@ input[type='number']::-webkit-inner-spin-button {
   display: inline-flex;
   align-items: center;
 }
+
+/* Notification styles */
+.notification-item {
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  background-color: #18181b;
+}
+
+.notification-item:hover {
+  background-color: #1f1f23;
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #2d2d2d;
+  flex-shrink: 0;
+}
+
+.notification-icon svg {
+  color: #efeff1;
+  width: 20px;
+  height: 20px;
+}
+
+/* Unread notification styles */
+.unread {
+  background-color: #1f1f23;
+}
+
+.unread .notification-icon {
+  background-color: #2d2d2d;
+}
+
+.unread .notification-icon svg {
+  color: #efeff1;
+}
+
+/* Message notification specific styles */
+.notification-item[data-type='message'] .notification-icon {
+  background-color: #2d2d2d;
+}
+
+.notification-item[data-type='message'] .notification-icon svg {
+  color: #efeff1;
+}
+
+.notification-item[data-type='message'].unread .notification-icon {
+  background-color: #3d3d3d;
+}
+
+.notification-item[data-type='message'].unread .notification-icon svg {
+  color: #ffffff;
+}

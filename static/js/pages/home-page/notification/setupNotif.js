@@ -74,12 +74,28 @@ export function setupNotif() {
     notifications.forEach((notif) => {
       const notifItem = document.createElement('div');
       notifItem.className = `notification-item ${!notif.read ? 'unread' : ''}`;
+
+      console.log('Notification:', notif);
+      // Choose icon based on notification type
+      let iconSVG;
+      switch (notif.type) {
+        case 'message':
+          iconSVG = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
+        <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1"/>
+      </svg>`;
+          break;
+        default:
+      }
       notifItem.innerHTML = `
-              <div class="notification-content">
-                  <p>${notif.sender}</p>
-                  <span class="notification-time">${formatDate(notif.created_at)}</span>
-              </div>
-          `;
+      <div class="notification-content">
+          <div class="notification-icon">${iconSVG}</div>
+          <div class="notification-info">
+              <p class="notification-text"><strong>${notif.sender}</strong> </p>
+              <span class="notification-time">${formatDate(notif.created_at)}</span>
+          </div>
+      </div>
+    `;
       notifItem.addEventListener('click', () => {
         //markAsRead(notif.id);
       });

@@ -61,6 +61,7 @@ export function setupMsgNotif() {
     notifications.forEach((notif) => {
       const msgNotifItem = document.createElement('div');
       msgNotifItem.className = `message-notification-item ${!notif.read ? 'unread' : ''}`;
+
       msgNotifItem.innerHTML = `
                 <div class="message-notification-content">
                     <div class="message-user-info">

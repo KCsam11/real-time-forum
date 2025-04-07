@@ -1,4 +1,4 @@
-import { home } from './pages/home-page/home.js';
+import { home } from './pages/home-page/home/home.js';
 import { setupUsersList } from './pages/home-page/usersList.js';
 import { updateOnlineStatus } from './pages/home-page/usersList.js';
 import { login } from './pages/login.js';
