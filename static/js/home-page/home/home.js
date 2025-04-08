@@ -3,6 +3,8 @@ import { createHome } from './homeTemplate.js';
 import { setupLogout } from '../login_register_logout/logout.js';
 import { setupNotif } from '../notification/setupNotif.js';
 import { setupUsersList, btnToggle } from '../usersList.js';
+import { initializePostCreation } from '../post/createPost.js';
+import { getAllPosts } from '../post/getPost.js';
 //import { refreshConversations } from './conversacion/setupConver.js';
 
 export const home = () => {
@@ -15,11 +17,13 @@ export const home = () => {
 function setupComponents() {
   setupLogout();
   btnToggle();
-
   setupNotif();
-
   setupMsgNotif();
-  // refreshConversations();
+
+  initializePostCreation(); // Initialize post creation functionality
+
+  getAllPosts();
+
   const usersContainer = document.getElementById('onlineUsers');
   if (usersContainer) {
     const onlineUsers = []; // Liste des IDs des utilisateurs connectés
@@ -27,111 +31,6 @@ function setupComponents() {
     usersContainer.parentNode.replaceChild(dynamicUsers, usersContainer);
   }
 }
-
-// function setupNotif() {
-//   let notifCount = 0;
-//   const notifCountElement = document.getElementById('notifCount');
-//   const testNotifBtn = document.getElementById('testNotifBtn');
-//   const notifBtn = document.getElementById('notifBtn');
-//   const notifPanel = document.getElementById('notifPanel');
-//   const notifList = document.getElementById('notifList');
-
-//   // Gérer le clic sur le bouton de notification
-//   if (notifBtn) {
-//     notifBtn.addEventListener('click', () => {
-//       notifPanel.classList.toggle('show');
-//       if (notifCount > 0) {
-//         notifCount = 0;
-//         notifCountElement.textContent = '0';
-//         notifCountElement.style.display = 'none';
-//       }
-//     });
-//   }
-
-//   // Fermer le panel si on clique ailleurs
-//   document.addEventListener('click', (e) => {
-//     if (!e.target.closest('.notification-container')) {
-//       notifPanel.classList.remove('show');
-//     }
-//   });
-
-//   if (testNotifBtn) {
-//     testNotifBtn.addEventListener('click', () => {
-//       notifCount++;
-//       if (notifCountElement) {
-//         notifCountElement.textContent = notifCount;
-//         notifCountElement.style.display = 'flex';
-//       }
-//       // Ajouter une nouvelle notification au panel
-//       const newNotif = document.createElement('div');
-//       newNotif.className = 'notification-item';
-//       newNotif.innerHTML = `Nouvelle notification #${notifCount}`;
-//       notifList.innerHTML = '';
-//       notifList.appendChild(newNotif);
-//     });
-//   }
-// }
-
-// function setupMsg() {
-//   let msgCount = 0;
-//   const msgCountElement = document.getElementById('msgCount');
-//   const msgBtn = document.getElementById('msgBtn');
-//   const msgPanel = document.getElementById('msgPanel');
-//   const chatContainer = document.getElementById('chatContainer');
-//   const userItems = msgPanel.querySelectorAll('.user-item');
-//   const testMsgBtn = document.getElementById('testMsgBtn');
-
-//   if (msgBtn) {
-//     msgBtn.addEventListener('click', (e) => {
-//       e.stopPropagation(); // Empêche la propagation du clic
-//       msgPanel.classList.toggle('show');
-//       // On retire la remise à zéro du compteur ici
-//     });
-//   }
-
-//   // Gérer le clic sur un utilisateur
-//   userItems.forEach((item) => {
-//     item.addEventListener('click', () => {
-//       const userName = item.querySelector('.user-name').textContent;
-//       chatContainer.classList.add('show-chat');
-//       document.querySelector('.chat-header-left h3').textContent = userName;
-//       msgPanel.classList.remove('show');
-//       // On remet le compteur à zéro uniquement quand on ouvre un chat
-//       if (msgCount > 0) {
-//         msgCount = 0;
-//         msgCountElement.textContent = '0';
-//         msgCountElement.style.display = 'none';
-//       }
-//     });
-//   });
-
-//   if (testMsgBtn) {
-//     testMsgBtn.addEventListener('click', () => {
-//       msgCount++;
-//       if (msgCountElement) {
-//         msgCountElement.textContent = msgCount;
-//         msgCountElement.style.display = 'flex';
-//       }
-//     });
-//   }
-
-//   document.addEventListener('click', (e) => {
-//     if (!e.target.closest('.message-container')) {
-//       msgPanel.classList.remove('show');
-//     }
-//   });
-// }
-
-// function setupUsersList() {
-//   const toggleUsersBtn = document.getElementById('toggleUsersBtn');
-//   const div4 = document.querySelector('.div4');
-
-//   if (toggleUsersBtn) {
-//     toggleUsersBtn.addEventListener('click', () => {
-//       div4.classList.toggle('collapsed');
-//     });
-//   }
-// }
 
 // function setupCreatePost() {
 //   const createPostBtn = document.getElementById('createPostBtn');

@@ -24,8 +24,6 @@ export function setupMsgNotif() {
       const notifications = await response.json();
       const messageNotifications = notifications.notifications.filter((notif) => notif.type === 'message');
 
-      console.log('💬 Notifications messages chargées:', messageNotifications);
-
       updateMessageNotificationDisplay(messageNotifications);
     } catch (error) {
       console.error('❌ Erreur chargement notifications messages:', error);
@@ -123,7 +121,6 @@ export function setupMsgNotif() {
 
   // Event Listeners
   msgBtn.addEventListener('click', async () => {
-    console.log('msgBtn clicked');
     const notifPanel = document.getElementById('notifPanel');
     if (notifPanel && notifPanel.classList.contains('show')) {
       notifPanel.classList.remove('show');

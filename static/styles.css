@@ -1694,3 +1694,73 @@ input[type='number']::-webkit-inner-spin-button {
 .notification-item[data-type='message'].unread .notification-icon svg {
   color: #ffffff;
 }
+.post-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #2d2d2d;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #efeff1;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #2d2d2d;
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.like-count,
+.dislike-count {
+  font-size: 14px;
+  min-width: 20px;
+}
+
+.action-btn.active {
+  color: #007bff;
+}
+
+.action-btn.active svg {
+  fill: #007bff;
+}
+
+.category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-category-select,
+.post-category-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #2d2d2d;
+  border-radius: 4px;
+  background-color: #18181b;
+  color: #efeff1;
+  font-size: 14px;
+}
+
+.post-category-input {
+  margin-top: 5px;
+}
+
+.post-category-select:focus,
+.post-category-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
