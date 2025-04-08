@@ -75,7 +75,6 @@ export function setupNotif() {
       const notifItem = document.createElement('div');
       notifItem.className = `notification-item ${!notif.read ? 'unread' : ''}`;
 
-      console.log('Notification:', notif);
       // Choose icon based on notification type
       let iconSVG;
       switch (notif.type) {
@@ -156,7 +155,6 @@ export function setupNotif() {
     console.log('Clic sur le bouton de notification');
     notifPanel.classList.add('show');
 
-    console.log('Chargement des notifications...');
     // D'abord charger les notifications
     try {
       const response = await fetch('http://localhost:8080/api/notif', {

@@ -31,12 +31,22 @@ export function initializeMessagePanel() {
     try {
       const response = await fetch('/api/conversation');
       const conversations = await response.json();
-      console.log('Conversations:', conversations);
+
+      // Compter les messages non lus par utilisateur
+      const unreadMessageCount = conversations.reduce((acc, conv) => {
+        if (!conv.is_read) {
+          // Assurez-vous d'avoir cette propriété dans vos données
+          acc[conv.username] = (acc[conv.username] || 0) + 1;
+        }
+        return acc;
+      }, {});
+
       const hasMessages = conversations.some((conv) => conv.last_message && conv.last_message.trim() !== '');
       if (!hasMessages) {
         msgList.innerHTML = '<p class="no-messages">Aucun message</p>';
         return;
       }
+
       // Trier les conversations par date de dernier message
       const sortedConversations = conversations.sort((a, b) => {
         const dateA = new Date(a.last_message_date);

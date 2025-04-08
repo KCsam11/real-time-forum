@@ -1,14 +1,11 @@
-import { home } from './pages/home-page/home/home.js';
-import { setupUsersList } from './pages/home-page/usersList.js';
-import { updateOnlineStatus } from './pages/home-page/usersList.js';
-import { login } from './pages/login.js';
-import { privateMessage } from './pages/home-page/chat/pvMess.js';
-import { setupNotif } from './pages/home-page/notification/setupNotif.js';
-import { notif } from './pages/home-page/notification/notif.js';
-// import { refreshConversations } from './pages/home-page/conversacion/refreshCon.js';
-//import { initializeMessagePanel } from './pages/home-page/conversacion/setupConver.js';
-import { setupMsgNotif } from './pages/home-page/conversacion/addNotifComment.js';
-//import { setupMsgNotif } from './pages/home-page/conversacion/addNotifComment.js';
+import { home } from './home-page/home/home.js';
+import { setupUsersList } from './home-page/usersList.js';
+import { updateOnlineStatus } from './home-page/usersList.js';
+import { login } from './home-page/login_register_logout/login.js';
+import { privateMessage } from './home-page/chat/pvMess.js';
+import { setupNotif } from './home-page/notification/setupNotif.js';
+import { notif } from './home-page/notification/notif.js';
+import { setupMsgNotif } from './home-page/conversacion/addNotifComment.js';
 
 export let socket = null;
 

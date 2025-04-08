@@ -1,5 +1,5 @@
 import { closeWebSocket } from '../../router.js';
-import { login } from '../login.js';
+import { login } from './login.js';
 
 export function setupLogout() {
   const logoutBtn = document.getElementById('logoutBtn');

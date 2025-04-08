@@ -1,6 +1,6 @@
 import { setupMsgNotif } from '../conversacion/addNotifComment.js';
 import { createHome } from './homeTemplate.js';
-import { setupLogout } from '../logout.js';
+import { setupLogout } from '../login_register_logout/logout.js';
 import { setupNotif } from '../notification/setupNotif.js';
 import { setupUsersList, btnToggle } from '../usersList.js';
 //import { refreshConversations } from './conversacion/setupConver.js';

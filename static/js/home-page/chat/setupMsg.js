@@ -1,4 +1,4 @@
-import { socket } from '../../../router.js';
+import { socket } from '../../router.js';
 
 let activeChat = null;
 let isTypingSent = false;
