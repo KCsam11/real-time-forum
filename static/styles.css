@@ -82,6 +82,9 @@ body {
   display: flex;
   align-items: center;
   padding: 0 var(--spacing-md);
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .login-container {
@@ -525,15 +528,18 @@ body {
 }
 
 .logo {
+  font-family: 'TwitchFont', sans-serif;
   color: #efeff1;
-  font-size: 28px;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
   letter-spacing: -0.5px;
-  padding-left: var(--spacing-md);
+  padding: 10px 20px; /* Ajustez selon vos besoins */
+  display: flex;
+  left: 50%;
+
   user-select: none;
-  cursor: pointer;
-  transition: text-shadow 0.3s ease;
+  align-items: center;
+  height: 100%; /* Pour centrer verticalement dans le header */
+  cursor: default;
 }
 
 .logo:hover {
@@ -542,6 +548,7 @@ body {
 
 .logo span {
   color: #772ce8;
+  user-select: none;
   background: linear-gradient(45deg, #772ce8, #a970ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1139,8 +1146,26 @@ body {
   color: #efeff1;
 }
 
-.login-logo .logo-highlight {
+.login-logo {
+  font-family: 'TwitchFont', sans-serif;
+  color: #efeff1;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  user-select: none;
+  cursor: default;
+  letter-spacing: -0.5px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.login-logo span {
   color: #772ce8;
+  background: linear-gradient(45deg, #772ce8, #a970ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .login-container h2 {
@@ -1763,4 +1788,88 @@ input[type='number']::-webkit-inner-spin-button {
 .post-category-input:focus {
   outline: none;
   border-color: #007bff;
+}
+
+@font-face {
+  font-family: 'TwitchFont';
+  src: url('/static/font/t.otf') format('opentype'), url('/static/font/t.ttf') format('truetype'); /* Fallback */
+
+  font-display: swap;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.action-btn.like-btn.liked {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.action-btn.dislike-btn.disliked {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.action-btn {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  position: relative;
+}
+.notification-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-right: 0;
+}
+/* Ajustement du bouton pour supprimer la notification */
+.delete-notif {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  /* Remplacer la marge négative pour éviter le décalage */
+  margin-right: 0;
+}
+.delete-notif:hover {
+  opacity: 1;
+}
+.delete-notif svg {
+  width: 14px;
+  height: 14px;
+  color: #6a7480;
+  stroke-width: 1;
+  background: transparent;
+}
+.delete-notif:hover svg {
+  color: #dc3545;
+}
+
+.delete-notif svg {
+  width: 18px;
+  height: 18px;
+  color: #6a7480;
+  stroke-width: 1;
+  background: transparent !important;
+}
+
+.notif-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #efeff1;
+  font-size: 24px;
+  cursor: pointer;
 }

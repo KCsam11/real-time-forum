@@ -10,8 +10,6 @@ import (
 func GetNotification(db *sql.DB, userID string) ([]models.GetNotification, error) {
     var notifications []models.GetNotification
 
-    // Debug: Print the userID we're searching for
-    log.Printf("Searching notifications for userID: %s", userID)
 
     rows, err := db.Query(`
         SELECT 
@@ -63,6 +61,5 @@ func GetNotification(db *sql.DB, userID string) ([]models.GetNotification, error
         return nil, err
     }
 
-    log.Printf("✅ Found %d unread notifications", len(notifications))
     return notifications, nil
 }

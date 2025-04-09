@@ -11,35 +11,19 @@ export function initializeMessagePanel() {
     console.log('Le panneau de message est déjà actif.');
   }
 
-  // Toggle message panel visibility
-  // msgBtn.addEventListener('click', (e) => {
-  //   e.stopPropagation(); // Prevent event from bubbling up
-  //   msgPanel.classList.toggle('active');
-  //   if (msgPanel.classList.contains('active')) {
-  //     loadConversations();
-  //   }
-  // });
-
-  // // Close panel when clicking outside
-  // document.addEventListener('click', (e) => {
-  //   if (!msgPanel.contains(e.target) && !msgBtn.contains(e.target)) {
-  //     msgPanel.classList.remove('active');
-  //   }
-  // });
-
   async function loadConversations() {
     try {
       const response = await fetch('/api/conversation');
       const conversations = await response.json();
 
-      // Compter les messages non lus par utilisateur
-      const unreadMessageCount = conversations.reduce((acc, conv) => {
-        if (!conv.is_read) {
-          // Assurez-vous d'avoir cette propriété dans vos données
-          acc[conv.username] = (acc[conv.username] || 0) + 1;
-        }
-        return acc;
-      }, {});
+      // // Compter les messages non lus par utilisateur
+      // const unreadMessageCount = conversations.reduce((acc, conv) => {
+      //   if (!conv.is_read) {
+      //     // Assurez-vous d'avoir cette propriété dans vos données
+      //     acc[conv.username] = (acc[conv.username] || 0) + 1;
+      //   }
+      //   return acc;
+      // }, {});
 
       const hasMessages = conversations.some((conv) => conv.last_message && conv.last_message.trim() !== '');
       if (!hasMessages) {

@@ -5,7 +5,7 @@ import { login } from './home-page/login_register_logout/login.js';
 import { privateMessage } from './home-page/chat/pvMess.js';
 import { setupNotif } from './home-page/notification/setupNotif.js';
 import { notif } from './home-page/notification/notif.js';
-import { setupMsgNotif } from './home-page/conversacion/addNotifComment.js';
+import { setupMsgPanel } from './home-page/conversacion/addNotifComment.js';
 
 export let socket = null;
 
@@ -22,7 +22,7 @@ export const router = () => {
     home(); // Charge la page d'accueil
     socket.send(JSON.stringify({ type: 'get_user' })); // Demande la liste des utilisateurs
 
-    setupMsgNotif(); // Met à jour les notifications de message
+    setupMsgPanel(); // Met à jour les notifications de message
   };
 
   socket.onmessage = (event) => {
@@ -52,7 +52,7 @@ export const router = () => {
         console.log('🔔 Notification reçue :', data.notification);
         notif(data.notification.sender_id, data.notification.id);
         console.log('Notification:', data.notification);
-        setupMsgNotif();
+        setupMsgPanel();
         //initializeMessagePanel();
         //setupMsgNotif();
       }

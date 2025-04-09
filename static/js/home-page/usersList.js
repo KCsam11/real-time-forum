@@ -158,7 +158,10 @@ export function updateOnlineStatus(userName, isOnline) {
       const aOnline = a.querySelector('.user-status.online') !== null;
       const bOnline = b.querySelector('.user-status.online') !== null;
       if (aOnline !== bOnline) return aOnline ? -1 : 1;
-      return 0;
+      // Tri alphabétique par nom pour les deux utilisateurs ayant le même statut en ligne
+      const aName = a.querySelector('.user-name')?.textContent.toLowerCase() || '';
+      const bName = b.querySelector('.user-name')?.textContent.toLowerCase() || '';
+      return aName.localeCompare(bName);
     });
 
     // Préserver les éléments et leurs états

@@ -1,10 +1,11 @@
-import { setupMsgNotif } from '../conversacion/addNotifComment.js';
+import { setupMsgPanel } from '../conversacion/addNotifComment.js';
 import { createHome } from './homeTemplate.js';
 import { setupLogout } from '../login_register_logout/logout.js';
 import { setupNotif } from '../notification/setupNotif.js';
 import { setupUsersList, btnToggle } from '../usersList.js';
 import { initializePostCreation } from '../post/createPost.js';
 import { getAllPosts } from '../post/getPost.js';
+import { setupLikeDislike } from '../like_dislike/setupLike_dislike.js';
 //import { refreshConversations } from './conversacion/setupConver.js';
 
 export const home = () => {
@@ -18,7 +19,7 @@ function setupComponents() {
   setupLogout();
   btnToggle();
   setupNotif();
-  setupMsgNotif();
+  setupMsgPanel();
 
   initializePostCreation(); // Initialize post creation functionality
 

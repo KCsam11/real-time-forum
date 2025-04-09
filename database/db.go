@@ -137,6 +137,7 @@ func InitDB() (*Database, error) {
         LAST_ACTIVE_AT TEXT DEFAULT (datetime('now', 'localtime')),
         FOREIGN KEY (USERID) REFERENCES USER (ID)
     );`
+    
     _, err = db.Exec(createTables)
     if err != nil {
         return nil, err

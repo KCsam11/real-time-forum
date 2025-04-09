@@ -59,9 +59,9 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
 	// mux.HandleFunc("/api/comment/{id}", func(w http.ResponseWriter, r *http.Request) {
 	// 	functions.Comment(db, w, r)
 	// })
-	// mux.HandleFunc("/event", func(w http.ResponseWriter, r *http.Request) {
-	// 	functions.Event(db, w, r)
-	// })
+	mux.HandleFunc("/api/event", func(w http.ResponseWriter, r *http.Request) {
+		functions.Event(db, w, r,hub)
+	})
 
     // Serve index.html for all other routes
     mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

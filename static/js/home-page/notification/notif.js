@@ -16,7 +16,7 @@ export const notif = async (senderId, notificationId) => {
   console.log('Chat container:', chatContainer);
   console.log('Active chat sender ID:', activeChatUserId);
   console.log('Sender ID:', senderId);
-
+  console.log('Notification ID:', notificationId);
   // Si le chat est actif avec ce user, marquer la notification comme lue
   if (chatContainer && activeChatUserId === senderId) {
     //markAsRead = true;
@@ -29,7 +29,7 @@ export const notif = async (senderId, notificationId) => {
         },
         body: JSON.stringify({
           notification_id: notificationId, // Changed to match backend expectation
-          mark_all: true,
+          mark_all: false,
         }),
         credentials: 'include',
       });
