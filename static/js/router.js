@@ -5,7 +5,7 @@ import { login } from './home-page/login_register_logout/login.js';
 import { privateMessage } from './home-page/chat/pvMess.js';
 import { setupNotif } from './home-page/notification/setupNotif.js';
 import { notif } from './home-page/notification/notif.js';
-import { setupMsgPanel } from './home-page/conversacion/addNotifComment.js';
+import { setupMsgPanel } from './home-page/conversacion/conv.js';
 
 export let socket = null;
 

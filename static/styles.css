@@ -1873,3 +1873,60 @@ input[type='number']::-webkit-inner-spin-button {
   font-size: 24px;
   cursor: pointer;
 }
+
+/* Styles pour le formulaire de commentaire en thème sombre */
+.forum-comment-form {
+  margin-top: 1em;
+  background-color: #18181b;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #2d2d2d;
+}
+
+.forum-form-row {
+  margin-bottom: 0.5em;
+}
+
+.forum-form-control-dark {
+  width: 100%;
+  padding: 8px;
+  background-color: #1f1f23;
+  border: 1px solid #2d2d2d;
+  border-radius: 4px;
+  font-family: inherit;
+  color: #efeff1;
+}
+
+.forum-form-control-dark::placeholder {
+  color: #adadb8;
+}
+
+.forum-button-row {
+  text-align: right;
+}
+
+.forum-btn {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.forum-btn-primary-dark {
+  background-color: #772ce8;
+  color: #fff;
+}
+
+.forum-btn-primary-dark:hover {
+  background-color: #9147ff;
+}
+
+.forum-comment-item-dark {
+  margin-top: 0.5em;
+  padding: 8px;
+  background-color: #2d2d2d;
+  border-radius: 4px;
+  font-size: 0.95em;
+  color: #efeff1;
+}

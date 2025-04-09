@@ -53,12 +53,12 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, hub *chat.Hub) {
 	// 	functions.UniquePost(db, w, r)
 	// })
 
-    // mux.HandleFunc("/api/comment", func(w http.ResponseWriter, r *http.Request) {
-	// 	functions.Comment(db, w, r)
-	// })
-	// mux.HandleFunc("/api/comment/{id}", func(w http.ResponseWriter, r *http.Request) {
-	// 	functions.Comment(db, w, r)
-	// })
+    mux.HandleFunc("/api/comment", func(w http.ResponseWriter, r *http.Request) {
+		functions.Comment(db, w, r)
+	})
+	mux.HandleFunc("/api/comment/{id}", func(w http.ResponseWriter, r *http.Request) {
+		functions.Comment(db, w, r)
+	})
 	mux.HandleFunc("/api/event", func(w http.ResponseWriter, r *http.Request) {
 		functions.Event(db, w, r,hub)
 	})
