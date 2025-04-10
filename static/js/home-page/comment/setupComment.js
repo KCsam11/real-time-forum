@@ -160,6 +160,7 @@ function createCommentForm(postId, commentsSection) {
 }
 
 function createCommentElement(comment) {
+  console.log("Création de l'élément de commentaire:", comment);
   const commentElement = document.createElement('div');
   commentElement.classList.add('forum-comment-item-dark');
 
@@ -172,8 +173,13 @@ function createCommentElement(comment) {
 
   const dateElement = document.createElement('span');
   dateElement.classList.add('comment-date');
-  dateElement.textContent = new Date(comment.created_at).toLocaleString();
-
+  dateElement.textContent = new Date(comment.created_at).toLocaleString('fr-FR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   commentHeader.appendChild(usernameElement);
   commentHeader.appendChild(dateElement);
 

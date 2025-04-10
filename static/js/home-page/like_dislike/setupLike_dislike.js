@@ -9,6 +9,16 @@ export function setupLikeDislike() {
     const dislikeBtn = postContainer.querySelector('.action-btn.dislike-btn');
     const postId = postContainer.getAttribute('data-post-id');
 
+    // Initialiser l'état au chargement
+    initializeState();
+
+    async function initializeState() {
+      const state = await getCurrentState();
+      if (state) {
+        updateButtonStates(state);
+      }
+    }
+
     async function getCurrentState() {
       try {
         const response = await fetch('http://localhost:8080/api/event', {
@@ -28,11 +38,21 @@ export function setupLikeDislike() {
         return null;
       }
     }
+
+    function updateButtonStates(state) {
+      // Mettre à jour le bouton like
+      likeBtn.classList.toggle('liked', state.liked);
+      likeBtn.querySelector('span').innerText = state.likes;
+
+      // Mettre à jour le bouton dislike
+      dislikeBtn.classList.toggle('disliked', state.disliked);
+      dislikeBtn.querySelector('span').innerText = state.dislikes;
+    }
+
     likeBtn.addEventListener('click', async () => {
       try {
         if (!likeBtn.classList.contains('liked')) {
-          // Ajouter le like : envoyer l'event qui pourra générer la notif
-          await fetch('http://localhost:8080/api/event', {
+          const response = await fetch('http://localhost:8080/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -42,17 +62,31 @@ export function setupLikeDislike() {
               id: parseInt(postId),
             }),
           });
-          likeBtn.classList.add('liked');
-          // Met à jour le compteur en utilisant la valeur affichée
-          likeBtn.querySelector('span').innerText = parseInt(likeBtn.querySelector('span').innerText) + 1;
-          if (dislikeBtn.classList.contains('disliked')) {
-            dislikeBtn.classList.remove('disliked');
-            dislikeBtn.querySelector('span').innerText = parseInt(dislikeBtn.querySelector('span').innerText) - 1;
+
+          if (response.ok) {
+            const newState = await getCurrentState();
+            if (newState) {
+              updateButtonStates(newState);
+            }
           }
         } else {
-          // Suppression du like : mise à jour de l'interface sans envoyer d'event
-          likeBtn.classList.remove('liked');
-          likeBtn.querySelector('span').innerText = parseInt(likeBtn.querySelector('span').innerText) - 1;
+          const response = await fetch('http://localhost:8080/api/event', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'post',
+              content_type: 'unlike',
+              id: parseInt(postId),
+            }),
+          });
+
+          if (response.ok) {
+            const newState = await getCurrentState();
+            if (newState) {
+              updateButtonStates(newState);
+            }
+          }
         }
       } catch (error) {
         console.error("Erreur lors de l'envoi du like:", error.message);
@@ -62,8 +96,7 @@ export function setupLikeDislike() {
     dislikeBtn.addEventListener('click', async () => {
       try {
         if (!dislikeBtn.classList.contains('disliked')) {
-          // Ajouter le dislike : envoyer l'event qui pourra générer la notif
-          await fetch('http://localhost:8080/api/event', {
+          const response = await fetch('http://localhost:8080/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -73,16 +106,31 @@ export function setupLikeDislike() {
               id: parseInt(postId),
             }),
           });
-          dislikeBtn.classList.add('disliked');
-          dislikeBtn.querySelector('span').innerText = parseInt(dislikeBtn.querySelector('span').innerText) + 1;
-          if (likeBtn.classList.contains('liked')) {
-            likeBtn.classList.remove('liked');
-            likeBtn.querySelector('span').innerText = parseInt(likeBtn.querySelector('span').innerText) - 1;
+
+          if (response.ok) {
+            const newState = await getCurrentState();
+            if (newState) {
+              updateButtonStates(newState);
+            }
           }
         } else {
-          // Suppression du dislike : mise à jour de l'interface sans envoyer d'event
-          dislikeBtn.classList.remove('disliked');
-          dislikeBtn.querySelector('span').innerText = parseInt(dislikeBtn.querySelector('span').innerText) - 1;
+          const response = await fetch('http://localhost:8080/api/event', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'post',
+              content_type: 'undislike',
+              id: parseInt(postId),
+            }),
+          });
+
+          if (response.ok) {
+            const newState = await getCurrentState();
+            if (newState) {
+              updateButtonStates(newState);
+            }
+          }
         }
       } catch (error) {
         console.error("Erreur lors de l'envoi du dislike:", error.message);
