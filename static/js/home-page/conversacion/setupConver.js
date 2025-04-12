@@ -16,15 +16,6 @@ export function initializeMessagePanel() {
       const response = await fetch('/api/conversation');
       const conversations = await response.json();
 
-      // // Compter les messages non lus par utilisateur
-      // const unreadMessageCount = conversations.reduce((acc, conv) => {
-      //   if (!conv.is_read) {
-      //     // Assurez-vous d'avoir cette propriété dans vos données
-      //     acc[conv.username] = (acc[conv.username] || 0) + 1;
-      //   }
-      //   return acc;
-      // }, {});
-
       const hasMessages = conversations.some((conv) => conv.last_message && conv.last_message.trim() !== '');
       if (!hasMessages) {
         msgList.innerHTML = '<p class="no-messages">Aucun message</p>';

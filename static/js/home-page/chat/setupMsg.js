@@ -94,7 +94,6 @@ export async function setupChat(username, userId, parentContainer = document.que
     // // Load existing messages
     const loadMess = async () => {
       const url = `http://localhost:8080/api/messages?user=${username}`;
-      console.log('📡 Requête GET envoyée à :', url);
 
       try {
         const response = await fetch(url, {
@@ -106,11 +105,9 @@ export async function setupChat(username, userId, parentContainer = document.que
           credentials: 'include', // Pour envoyer les cookies
         });
 
-        console.log('🔄 Réponse HTTP reçue :', response.status);
         if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
 
         const messages = await response.json();
-        console.log('✅ Messages reçus :', messages);
 
         // Nettoyer la zone d'affichage
         chatMessages.innerHTML = '';
@@ -197,10 +194,7 @@ export async function setupChat(username, userId, parentContainer = document.que
         return;
       }
 
-      console.log('📩 Envoi du message :', messageText);
-
       const noMessagesElement = chatMessages.querySelector('.no-messages');
-      console.log('No messages element:', noMessagesElement);
       if (noMessagesElement) {
         noMessagesElement.remove();
       }
@@ -231,7 +225,6 @@ export async function setupChat(username, userId, parentContainer = document.que
           body: JSON.stringify({ receiver: username, message: messageText }),
         });
 
-        console.log('📡 Réponse POST reçue :', response.status);
         if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
 
         const messageTrailing = JSON.stringify({
@@ -240,8 +233,6 @@ export async function setupChat(username, userId, parentContainer = document.que
         });
         socket.send(messageTrailing);
         isTypingSent = false;
-
-        console.log('✅ Message envoyé avec succès et conversations rafraîchies !');
       } catch (error) {
         console.error("❌ Erreur d'envoi du message :", error);
       }

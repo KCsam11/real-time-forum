@@ -5,7 +5,6 @@ export function setupLogout() {
   const logoutBtn = document.getElementById('logoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
-      console.log('🔒 Déconnexion en cours...');
       try {
         const response = await fetch('/api/logout', {
           method: 'POST',

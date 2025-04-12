@@ -55,7 +55,6 @@ function createCommentsSection(commentBtn) {
 async function loadExistingComments(postId, commentsSection) {
   try {
     const url = `http://localhost:8080/api/comment/${postId}`;
-    console.log('Chargement des commentaires depuis:', url);
 
     const response = await fetch(url, {
       method: 'GET',
@@ -80,8 +79,6 @@ async function loadExistingComments(postId, commentsSection) {
       console.error('Erreur de parsing JSON:', parseError);
       throw new Error('Format de réponse invalide');
     }
-
-    console.log('Commentaires reçus:', comments);
 
     // Vider les commentaires existants
     const existingComments = commentsSection.querySelectorAll('.forum-comment-item-dark');
@@ -160,7 +157,6 @@ function createCommentForm(postId, commentsSection) {
 }
 
 function createCommentElement(comment) {
-  console.log("Création de l'élément de commentaire:", comment);
   const commentElement = document.createElement('div');
   commentElement.classList.add('forum-comment-item-dark');
 

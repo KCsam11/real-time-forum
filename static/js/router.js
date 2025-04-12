@@ -46,19 +46,13 @@ export const router = () => {
       if (data.type === 'private') {
         console.log('📩 Message privé reçu :', data.content);
         privateMessage(data.content);
-        //majMessage(data.content);
       }
       if (data.type === 'notification') {
-        console.log('🔔 Notification reçue :', data.notification);
         notif(data.notification.sender_id, data.notification.id);
-        console.log('Notification:', data.notification);
         setupMsgPanel();
-        //initializeMessagePanel();
-        //setupMsgNotif();
       }
 
       if (data.type === 'is_typing' || data.type === 'is_not_typing') {
-        // bubbleAnim(data.content, data.is_typing);
       }
     } catch (error) {
       console.error('❌ Erreur lors de la réception du message WebSocket :', error);

@@ -207,21 +207,12 @@ export function setupNotif() {
         credentials: 'include',
       });
       const data = await response.json();
-      console.log('Notifications:', data.notifications);
       updateNotificationDisplay(data.notifications);
     } catch (error) {
       console.error('Error loading notifications:', error);
       notifList.innerHTML = '<p class="no-notifications">Error loading notifications</p>';
     }
   });
-
-  // document.addEventListener('click', (e) => {
-  //   console.log('Clic sur le document');
-  //   if (!notifBtn.contains(e.target) && !notifPanel.contains(e.target)) {
-  //     notifPanel.classList.remove('show');
-  //     loadNotifications();
-  //   }
-  // });
 
   // Initial load
   loadNotifications();

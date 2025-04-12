@@ -50,8 +50,7 @@ func Event(db *sql.DB, w http.ResponseWriter, r *http.Request, hub *chat.Hub) {
         return
     }
 
-    // Log des données reçues
-    fmt.Printf("Event reçu: %+v\n", event)
+    
 
     if event.Id <= 0 {
         utils.SendErrorResponse(w, http.StatusBadRequest, "ID invalide")
@@ -70,9 +69,6 @@ func Event(db *sql.DB, w http.ResponseWriter, r *http.Request, hub *chat.Hub) {
     }
 
     switch event.Type {
-    case "comment":
-        handleCommentEvent(db, w, userID, event)
-        return
     case "post":
         handlePostEvent(db, w, userID, event, hub)
         return
@@ -82,36 +78,6 @@ func Event(db *sql.DB, w http.ResponseWriter, r *http.Request, hub *chat.Hub) {
     }
 }
 
-func handleCommentEvent(db *sql.DB, w http.ResponseWriter, userID string, event ReceiveEvent) {
-	// var err error
-
-	// switch event.ContentType {
-	// case "like":
-	// 	err = services.CommentEventLike(db, userID, event.Id)
-	// 	if err != nil {
-	// 		utils.SendErrorResponse(w, http.StatusInternalServerError, err.Error())
-	// 		return
-	// 	}
-	// 	err = services.CreateNotification(db, userID, "like_comment", event.Id)
-	// case "dislike":
-	// 	err = services.CommentEventDislike(db, userID, event.Id)
-	// 	if err != nil {
-	// 		utils.SendErrorResponse(w, http.StatusInternalServerError, err.Error())
-	// 		return
-	// 	}
-	// 	err = services.CreateNotification(db, userID, "dislike_comment", event.Id)
-	// default:
-	// 	utils.SendErrorResponse(w, http.StatusBadRequest, "Unknown event type")
-	// 	return
-	// }
-
-	// if err != nil {
-	// 	utils.SendErrorResponse(w, http.StatusInternalServerError, err.Error())
-	// 	return
-	// }
-
-	// w.WriteHeader(http.StatusOK)
-}
 
 func handlePostEvent(db *sql.DB, w http.ResponseWriter, userID string, event ReceiveEvent, hub *chat.Hub) {
 	var err error
@@ -147,11 +113,6 @@ func handlePostEvent(db *sql.DB, w http.ResponseWriter, userID string, event Rec
         return
     }
 
-    // err = services.CreateNotification(db, userID, notifType, event.Id)
-    // if err != nil {
-	// 	utils.SendErrorResponse(w, http.StatusInternalServerError, err.Error())
-	// 	return
-	// }
 
      // Get post owner's ID
      var postOwnerID string

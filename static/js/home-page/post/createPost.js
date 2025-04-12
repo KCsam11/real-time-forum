@@ -118,7 +118,6 @@ async function handlePostSubmission(modal) {
       throw new Error('Erreur lors de la création du post.');
     }
 
-    console.log('Post ajouté avec succès !');
     closeModal(modal);
     resetForm(modal);
     router();

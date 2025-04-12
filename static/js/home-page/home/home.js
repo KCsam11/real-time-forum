@@ -5,8 +5,6 @@ import { setupNotif } from '../notification/setupNotif.js';
 import { setupUsersList, btnToggle } from '../usersList.js';
 import { initializePostCreation } from '../post/createPost.js';
 import { getAllPosts } from '../post/getPost.js';
-import { setupLikeDislike } from '../like_dislike/setupLike_dislike.js';
-//import { refreshConversations } from './conversacion/setupConver.js';
 
 export const home = () => {
   const homePage = createHome();

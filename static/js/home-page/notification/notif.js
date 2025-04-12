@@ -12,11 +12,7 @@ export const notif = async (senderId, notificationId) => {
 
   const chatContainer = document.querySelector('.chat-container');
   const activeChatUserId = chatContainer?.getAttribute('data-user-id');
-  //const markAsRead = false;
-  console.log('Chat container:', chatContainer);
-  console.log('Active chat sender ID:', activeChatUserId);
-  console.log('Sender ID:', senderId);
-  console.log('Notification ID:', notificationId);
+
   // Si le chat est actif avec ce user, marquer la notification comme lue
   if (chatContainer && activeChatUserId === senderId) {
     //markAsRead = true;
@@ -33,7 +29,6 @@ export const notif = async (senderId, notificationId) => {
         }),
         credentials: 'include',
       });
-      console.log('Notification marquée comme lue automatiquement');
       return false; // Ne pas incrémenter le compteur
     } catch (error) {
       console.error('Erreur lors du marquage automatique:', error);
