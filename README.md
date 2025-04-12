@@ -1,6 +1,6 @@
-# Real-Time Chat & Social Network
+# Real-Time Chat
 
-A Go-based web application that combines real-time chat functionality with social networking features.
+A Go-based web application that combines real-time chat functionality
 
 ## Features
 
