@@ -9,7 +9,7 @@ export function setupUsersList(onlineUsers = []) {
   loading.textContent = 'Chargement des utilisateurs...';
   section.appendChild(loading);
 
-  fetch('http://localhost:8080/api/users', {
+  fetch('http://localhost:3123/api/users', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -25,7 +25,7 @@ export function setupUsersList(onlineUsers = []) {
       usersList.className = 'users-list';
       section.appendChild(usersList);
 
-      fetch('http://localhost:8080/api/current-user', {
+      fetch('http://localhost:3123/api/current-user', {
         method: 'GET',
         headers: {
           Accept: 'application/json',

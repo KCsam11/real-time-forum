@@ -16,7 +16,7 @@ export function setupNotif() {
   // Fonction pour charger les notifications
   async function loadNotifications() {
     try {
-      const response = await fetch('http://localhost:8080/api/notif', {
+      const response = await fetch('http://localhost:3123/api/notif', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ export function setupNotif() {
         mark_all: markAll,
       };
 
-      const response = await fetch('http://localhost:8080/api/notif', {
+      const response = await fetch('http://localhost:3123/api/notif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ export function setupNotif() {
 
     // D'abord charger les notifications
     try {
-      const response = await fetch('http://localhost:8080/api/notif', {
+      const response = await fetch('http://localhost:3123/api/notif', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

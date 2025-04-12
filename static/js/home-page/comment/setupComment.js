@@ -54,7 +54,7 @@ function createCommentsSection(commentBtn) {
 
 async function loadExistingComments(postId, commentsSection) {
   try {
-    const url = `http://localhost:8080/api/comment/${postId}`;
+    const url = `http://localhost:3123/api/comment/${postId}`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -131,7 +131,7 @@ function createCommentForm(postId, commentsSection) {
     if (!content) return;
 
     try {
-      const response = await fetch('http://localhost:8080/api/comment', {
+      const response = await fetch('http://localhost:3123/api/comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

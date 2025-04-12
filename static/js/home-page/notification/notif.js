@@ -18,7 +18,7 @@ export const notif = async (senderId, notificationId) => {
     //markAsRead = true;
     try {
       // Appel à l'API pour marquer comme lu
-      await fetch('http://localhost:8080/api/notif', {
+      await fetch('http://localhost:3123/api/notif', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

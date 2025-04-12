@@ -50,7 +50,7 @@ func handleNotification(db *sql.DB, w http.ResponseWriter, r *http.Request, user
     
     // Set content type and CORS headers
     w.Header().Set("Content-Type", "application/json")
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3123")
     w.Header().Set("Access-Control-Allow-Credentials", "true")
     w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
     w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -100,7 +100,7 @@ func handleNotification(db *sql.DB, w http.ResponseWriter, r *http.Request, user
 func handleReadedNotification(db *sql.DB, w http.ResponseWriter, r *http.Request, userId string) {
     // Set headers first
     w.Header().Set("Content-Type", "application/json")
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3123")
     w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
     w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
     w.Header().Set("Access-Control-Allow-Credentials", "true")

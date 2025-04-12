@@ -48,7 +48,7 @@ Start the server:
 go run main.go
 ```
 
-The server will start on `localhost:8080` by default.
+The server will start on `localhost:3123` by default.
 
 ## API Endpoints
 

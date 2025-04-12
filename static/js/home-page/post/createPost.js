@@ -106,7 +106,7 @@ async function handlePostSubmission(modal) {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/api/post', {
+    const response = await fetch('http://localhost:3123/api/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
