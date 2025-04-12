@@ -15,7 +15,7 @@ export const router = () => {
   }
 
   // 📡 Création d'une nouvelle connexion WebSocket
-  socket = new WebSocket('ws://localhost:3123/ws');
+  socket = new WebSocket('ws://217.154.67.147:3123/ws');
 
   socket.onopen = () => {
     console.log('✅ WebSocket connecté !');

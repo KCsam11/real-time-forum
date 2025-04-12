@@ -21,7 +21,7 @@ export function setupLikeDislike() {
 
     async function getCurrentState() {
       try {
-        const response = await fetch('http://localhost:3123/api/event', {
+        const response = await fetch('http://217.154.67.147:3123/api/event', {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
@@ -52,7 +52,7 @@ export function setupLikeDislike() {
     likeBtn.addEventListener('click', async () => {
       try {
         if (!likeBtn.classList.contains('liked')) {
-          const response = await fetch('http://localhost:3123/api/event', {
+          const response = await fetch('http://217.154.67.147:3123/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -70,7 +70,7 @@ export function setupLikeDislike() {
             }
           }
         } else {
-          const response = await fetch('http://localhost:3123/api/event', {
+          const response = await fetch('http://217.154.67.147:3123/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -96,7 +96,7 @@ export function setupLikeDislike() {
     dislikeBtn.addEventListener('click', async () => {
       try {
         if (!dislikeBtn.classList.contains('disliked')) {
-          const response = await fetch('http://localhost:3123/api/event', {
+          const response = await fetch('http://217.154.67.147:3123/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -114,7 +114,7 @@ export function setupLikeDislike() {
             }
           }
         } else {
-          const response = await fetch('http://localhost:3123/api/event', {
+          const response = await fetch('http://217.154.67.147:3123/api/event', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },

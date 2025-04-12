@@ -9,7 +9,7 @@ import (
 
 func Conversation(db *sql.DB, w http.ResponseWriter, r *http.Request) {
     // Set CORS headers
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3123")
+    w.Header().Set("Access-Control-Allow-Origin", "http://217.154.67.147:3123")
     w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
     w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
     w.Header().Set("Access-Control-Allow-Credentials", "true")

@@ -93,7 +93,7 @@ export async function setupChat(username, userId, parentContainer = document.que
 
     // // Load existing messages
     const loadMess = async () => {
-      const url = `http://localhost:3123/api/messages?user=${username}`;
+      const url = `http://217.154.67.147:3123/api/messages?user=${username}`;
 
       try {
         const response = await fetch(url, {
@@ -219,7 +219,7 @@ export async function setupChat(username, userId, parentContainer = document.que
 
       // Envoyer le message au serveur
       try {
-        const response = await fetch('http://localhost:3123/api/messages', {
+        const response = await fetch('http://217.154.67.147:3123/api/messages', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ receiver: username, message: messageText }),

@@ -12,7 +12,7 @@ import (
 func GetCurrentUser(db *sql.DB, w http.ResponseWriter, r *http.Request) {
     // Set response headers first
     w.Header().Set("Content-Type", "application/json")
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3123")
+    w.Header().Set("Access-Control-Allow-Origin", "http://217.154.67.147:3123")
     w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 	if r.Method == "OPTIONS" {

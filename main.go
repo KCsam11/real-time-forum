@@ -71,6 +71,6 @@ func main() {
 	// Ajout du middleware CORS
 	handlerWithCORS := corsMiddleware(mux)
 
-	log.Println("Serveur démarré sur le port http://localhost:3123")
+	log.Println("Serveur démarré sur le port http://217.154.67.147:3123")
 	log.Fatal(http.ListenAndServe(":3123", handlerWithCORS))
 }

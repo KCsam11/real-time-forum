@@ -3,7 +3,7 @@ import { setupLikeDislike } from '../like_dislike/setupLike_dislike.js';
 
 export async function getAllPosts() {
   try {
-    const response = await fetch('http://localhost:3123/api/post', {
+    const response = await fetch('http://217.154.67.147:3123/api/post', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
