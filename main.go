@@ -72,5 +72,5 @@ func main() {
 	handlerWithCORS := corsMiddleware(mux)
 
 	log.Println("Serveur démarré sur le port http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", handlerWithCORS))
+	log.Fatal(http.ListenAndServe(":3123", handlerWithCORS))
 }
