@@ -48,8 +48,6 @@ Start the server:
 go run main.go
 ```
 
-The server will start on `217.154.67.147:3123` by default.
-
 ## API Endpoints
 
 - **Authentication**
@@ -74,3 +72,5 @@ The server will start on `217.154.67.147:3123` by default.
 The application uses SQLite as its database, stored in `database/db.db`.
 
 ## Deployment
+
+The application is deployed and accessible at `http://217.154.67.147:3123`.
